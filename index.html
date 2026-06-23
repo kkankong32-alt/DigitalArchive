@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>딸깍 바이브교실 아카이브</title>
+    
+    <!-- Tailwind CSS (CDN을 통해 디자인 클래스 로드) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (CDN을 통해 아이콘 로드) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* 커스텀 스크롤바 숨김 (넷플릭스 스타일 가로 스크롤) */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 히어로 섹션 그라데이션 */
+        .hero-gradient { background: linear-gradient(to top, #141414 0%, transparent 60%); }
+        
+        /* 전체 배경 및 텍스트 선택 색상 설정 */
+        body { background-color: #141414; color: white; overflow-x: hidden; }
+        ::selection { background-color: #dc2626; color: white; }
+    </style>
+</head>
+<body class="font-sans pb-20">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 flex items-center px-6 md:px-12 py-4 bg-gradient-to-b from-black/80 to-transparent">
+        <div class="flex items-center gap-2">
+            <i data-lucide="monitor-play" class="text-[#E50914] w-8 h-8"></i>
+            <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white drop-shadow-md">딸깍 바이브교실</h1>
+        </div>
+        <div class="hidden md:flex items-center gap-6 ml-10 text-sm text-gray-300 font-medium">
+            <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="text-white hover:text-gray-300 transition">홈</button>
+            <button onclick="document.getElementById('toolkit-section-math').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition">Vibe-MSE 툴킷</button>
+            <button onclick="document.getElementById('video-manual').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition">영상 매뉴얼</button>
+            <button onclick="document.getElementById('open-source').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition">오픈소스</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative w-full h-[70vh] md:h-[85vh] flex items-center">
+        <!-- Background Image & Overlay -->
+        <div class="absolute inset-0">
+            <!-- 메인 배경 이미지 (이 부분도 추후 선생님의 이미지로 바꾸실 수 있습니다) -->
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Hero Background" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 px-6 md:px-12 max-w-4xl pt-20">
+            <div class="inline-block bg-[#E50914] text-white text-xs font-bold px-2 py-1 rounded-sm mb-4 tracking-wider">
+                2026 특별연구년 프로젝트
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight drop-shadow-lg">
+                교사가 직접 만드는<br/>맞춤형 AI 에듀테크
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl drop-shadow-md">
+                생성형 AI와 바이브코딩을 활용하여 학생의 오개념을 실시간으로 진단하고 교정하는 초등 수·과학 맞춤형 웹 게임 툴킷입니다. 가입도, 설치도 필요 없습니다.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <button onclick="document.getElementById('toolkit-section-math').scrollIntoView({ behavior: 'smooth' })" class="flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded hover:bg-gray-200 transition font-bold text-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    시작하기
+                </button>
+                <button onclick="alert('명문초등학교 김종훈 선생님의 2026학년도 특별연구년 중간보고서 연계 아카이브 페이지입니다.')" class="flex items-center justify-center gap-2 bg-gray-500/50 text-white px-6 py-3 rounded hover:bg-gray-500/70 transition font-bold text-lg backdrop-blur-sm">
+                    <i data-lucide="info" class="w-5 h-5"></i> 상세 정보
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Areas -->
+    <div class="px-6 md:px-12 -mt-20 md:-mt-32 relative z-20 flex flex-col gap-10 md:gap-14">
+        
+        <!-- Row 1: Math Tools -->
+        <section id="toolkit-section-math">
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                초등 4학년 수학 툴킷 <i data-lucide="chevron-right" class="text-gray-400"></i>
+            </h2>
+            <div id="math-toolkit-container" class="flex overflow-x-auto gap-4 hide-scroll pb-8 pt-2">
+                <!-- Javascript로 동적 렌더링 됨 -->
+            </div>
+        </section>
+
+        <!-- Row 2: Science Tools -->
+        <section id="toolkit-section-science">
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                초등 4학년 과학 툴킷 <i data-lucide="chevron-right" class="text-gray-400"></i>
+            </h2>
+            <div id="science-toolkit-container" class="flex overflow-x-auto gap-4 hide-scroll pb-8 pt-2">
+                <!-- Javascript로 동적 렌더링 됨 -->
+            </div>
+        </section>
+
+        <!-- Rows 3+: Youtube Categories -->
+        <div id="video-manual" class="flex flex-col gap-10 md:gap-14">
+            <!-- Javascript로 동적 렌더링 됨 -->
+        </div>
+
+        <!-- Open Source Section -->
+        <section id="open-source" class="pt-4 pb-10">
+            <h2 class="text-xl md:text-2xl font-bold mb-4 text-white flex items-center gap-2">
+                오픈소스 아카이브 <i data-lucide="chevron-right" class="text-gray-400"></i>
+            </h2>
+            <div class="bg-[#181818] rounded-xl p-8 md:p-12 text-center border border-zinc-800 shadow-lg">
+                <i data-lucide="file-text" class="w-12 h-12 mx-auto text-zinc-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-white mb-2">HTML 소스코드 공유소</h3>
+                <p class="text-zinc-400 mb-6 max-w-xl mx-auto">
+                    선생님께서 개발하신 단일 HTML 소스코드와 커스터마이징 텍스트가 이곳에 아카이빙됩니다. 코드를 전달해주시면 동료 선생님들이 쉽게 복사해서 사용할 수 있도록 코드 블록 뷰어를 구성해 드립니다.
+                </p>
+                <button class="bg-zinc-800 text-zinc-400 border border-zinc-700 px-6 py-3 rounded cursor-not-allowed font-medium shadow-inner">
+                    HTML 소스코드 업데이트 대기 중...
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-20 px-6 md:px-12 py-8 border-t border-zinc-800 text-center text-zinc-500 text-sm">
+        <p class="mb-2">2026학년도 특별연구년 특별연수 산출물 아카이브</p>
+        <p>명문초등학교 김종훈 | 바이브코딩과 프롬프트 엔지니어링을 활용한 맞춤형 교수학습 도구 개발</p>
+    </footer>
+
+    <!-- Detail Modal -->
+    <div id="modal" class="fixed inset-0 z-50 hidden justify-center items-center p-4 md:p-10 pt-20 overflow-y-auto hide-scroll">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-[#181818] w-full max-w-3xl rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+            <!-- Close Button -->
+            <button class="absolute top-4 right-4 z-20 bg-[#181818] text-white p-2 rounded-full hover:bg-zinc-800 transition shadow-lg" onclick="closeModal()">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Modal Header/Cover -->
+            <div class="relative w-full aspect-[21/9]">
+                <!-- 선생님의 로컬 이미지가 들어가는 부분 -->
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover opacity-50">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#181818] via-[#181818]/60 to-transparent"></div>
+                
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <h2 id="modal-title" class="text-3xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg"></h2>
+                    <div id="modal-buttons" class="flex flex-wrap gap-3">
+                        <!-- 버튼들 동적 생성 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-8 flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-4 text-sm font-semibold">
+                        <span class="text-green-500">HTML 단일 파일 구조</span>
+                        <span class="bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded border border-zinc-700">AI 내장</span>
+                        <span id="modal-subject-tag" class="bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded border border-zinc-700"></span>
+                    </div>
+                    <p id="modal-desc" class="text-zinc-300 text-lg leading-relaxed"></p>
+                </div>
+                
+                <div class="md:w-1/3 flex flex-col gap-4 text-sm">
+                    <div>
+                        <span class="text-zinc-500 block mb-1">관련 교과</span>
+                        <span id="modal-subject" class="text-white"></span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block mb-1">개발 기술 (바이브코딩)</span>
+                        <span class="text-white break-words">Google Gemini, Lovable, 단일 HTML</span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block mb-1">커뮤니티 소스 공유</span>
+                        <a id="modal-indischool" href="#" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 flex items-center gap-1 transition">
+                            인디스쿨 게시글 확인 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트: 데이터 및 로직 처리 -->
+    <script>
+        // --- DATA DEFINITIONS ---
+        // 깃허브 업로드를 위해 이미지 파일명을 image01.png ~ image06.png 형태로 매칭했습니다.
+        const TOOLKIT_DATA = [
+            {
+                id: 'math-angle',
+                title: '십이지신 레이스',
+                subject: '수학 4-1 각도',
+                desc: '각도기를 거꾸로 잡거나 개념을 혼동하는 학생을 위한 레이스 게임입니다. 12마리의 십이지신 캐릭터와 함께 목표 각도를 직접 그리며, AI가 예각/둔각/직각 오개념을 판별하고 즉각적인 교정 힌트를 제공합니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Anglecatch',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Anglecatchnote',
+                indischoolUrl: 'https://indischool.com/boards/libMath/37562318?key=PNvsc9Y6eHRAxoNv#reply-54637043',
+                img: 'image01.png'
+            },
+            {
+                id: 'math-space',
+                title: '우주 연산 수비대',
+                subject: '수학 4-1 곱셈과 나눗셈',
+                desc: '마의 3단원 돌파를 위한 2인 대결형 우주 테마 보드게임! 연산 오류 AI 감지 시스템이 자릿수 올림 누락, 구구단 실수 등 12종의 오류 패턴을 개별 감지하며, 게임 종료 후 비행 기록 일지(오답 노트)를 자동 생성합니다.',
+                gameUrl: 'https://throinhoon.github.io/SpaceMultiplication-Division',
+                indischoolUrl: 'https://indischool.com/boards/libMath/37572591',
+                img: 'image02.png'
+            },
+            {
+                id: 'sci-magnet',
+                title: '자석 축구 월드컵',
+                subject: '과학 4-1 자석의 이용',
+                desc: '자석 월드컵 예선전 컨셉의 실시간 대결 HTML 게임입니다. 골을 넣을 때마다 축구공의 N극/S극이 변환되어, 수비(밀어내기/같은 극)와 공격(당겨오기/다른 극) 규칙을 통해 자석의 성질을 직관적으로 체득할 수 있습니다.',
+                gameUrl: 'https://throinhoon.github.io/magnetsoccer/',
+                worksheetUrl: 'https://throinhoon.github.io/magnetscooernote/',
+                indischoolUrl: 'https://indischool.com/boards/libScience/37565032',
+                img: 'image03.png'
+            },
+            {
+                id: 'sci-water',
+                title: '상태변화런 (물 탐험대)',
+                subject: '과학 4-1 물의 상태 변화',
+                desc: '상태 변화 개념의 직관적 게임화! 10문항의 입단 테스트를 거쳐, 몬스터의 약점(얼음, 물, 불꽃)에 맞춰 플레이어의 상태를 실시간 변환하며 달리는 액션 런 게임입니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/watercycle/',
+                worksheetUrl: 'https://kkankong32-alt.github.io/watercyclequiz/',
+                indischoolUrl: 'https://indischool.com/boards/libScience/37577682',
+                img: 'image04.png'
+            },
+            {
+                id: 'math-shape',
+                title: '도형 서바이벌 & 퀴즈',
+                subject: '수학 4-1 평면도형의 이동',
+                desc: '평면도형의 밀기, 뒤집기, 돌리기 개념을 활용한 블록 서바이벌 게임과 사전 퀴즈 패키지입니다. 도형의 이동 규칙을 직관적으로 체득할 수 있습니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Diceshapegame',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Diceshapegamequiz',
+                indischoolUrl: '#',
+                img: 'image05.png'
+            },
+            {
+                id: 'math-bargraph',
+                title: '막대그래프 메이커',
+                subject: '수학 4-1 막대그래프',
+                desc: '수집한 자료를 바탕으로 막대그래프를 쉽고 재미있게 그려볼 수 있는 인터랙티브 프로그램입니다. 데이터를 시각화하는 과정을 게임처럼 즐겁게 학습합니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Bargraph/',
+                indischoolUrl: '#',
+                img: 'image06.png'
+            }
+        ];
+
+        const YOUTUBE_CATEGORIES = [
+            {
+                title: "수학·과학 툴킷 활용 가이드",
+                videos: [
+                    { title: "자석 축구 게임 - 자석 수업의 신세계", url: "https://www.youtube.com/watch?v=xQgAQDI8s4w" },
+                    { title: "상태 변화 런 게임 - 단원평가가 즐거워지는 마법", url: "https://www.youtube.com/watch?v=2t0yLGbS33s" },
+                    { title: "우주 연산 수비대 - 마의 3단원 완벽 해결", url: "https://www.youtube.com/watch?v=UU_xEetD4dA" },
+                    { title: "십이지신 레이스 - 각도 공부가 게임이 된다", url: "https://www.youtube.com/watch?v=SkcNBJ_t-Mw" },
+                    { title: "AI 오개념 즉시 교정 - 개별 피드백 지옥 탈출", url: "https://www.youtube.com/watch?v=-aOgBKP8Wc0" },
+                    { title: "선생님 대신 AI가 오개념 고쳐줘요", url: "https://www.youtube.com/watch?v=FVNZ7JwmZ6Y" }
+                ]
+            },
+            {
+                title: "바이브코딩 핵심 노하우 (커스텀 & 꿀팁)",
+                videos: [
+                    { title: "코딩 0%, 아이디어 100% | 내 수업 맞춤형 변경법", url: "https://www.youtube.com/watch?v=pzh7WshrnPc" },
+                    { title: "API호출 없이 수학 게임 내부로직 제작법", url: "https://www.youtube.com/watch?v=vrQqfPxcECg" },
+                    { title: "HTML 수업자료, 학운위 심의 대상일까요?", url: "https://www.youtube.com/watch?v=ZjCqR6Vhk_M" },
+                    { title: "보안 걱정 없는 패들렛 활용 우회 꿀팁", url: "https://www.youtube.com/watch?v=p-a8WopsJtg" },
+                    { title: "종이학습지 인쇄 그만! 퇴근 시간을 벌어봐요", url: "https://www.youtube.com/watch?v=IKN2Zk4hn7g" },
+                    { title: "세상에서 가장 쉬운 AI 교구 제작 비법", url: "https://www.youtube.com/watch?v=ZatxpX8Ta-c" }
+                ]
+            },
+            {
+                title: "NotebookLM AI 수업 혁명",
+                videos: [
+                    { title: "교과서만 넣으면 AI가 라디오를! 역대급 활용법", url: "https://www.youtube.com/watch?v=dsV1ZJ96v7M" },
+                    { title: "내 입맛대로 만드는 AI 커스텀 퀴즈 1분 완성", url: "https://www.youtube.com/watch?v=_4mb7AjTa6c" },
+                    { title: "유튜브 영상, 보지 말고 '읽으세요' 소스 업로드 비법", url: "https://www.youtube.com/watch?v=MNxyUXVrwn4" },
+                    { title: "AI가 자꾸 거짓말을? 팩트 폭격기 NotebookLM 해결", url: "https://www.youtube.com/watch?v=CjuOToCt0sk" },
+                    { title: "수백 장짜리 매뉴얼, 1초 만에 AI 챗봇 만들기", url: "https://www.youtube.com/watch?v=eAljRYyImjQ" },
+                    { title: "딱딱한 텍스트를 팟캐스트로! AI 오디오 공부법", url: "https://www.youtube.com/watch?v=x3d4FC76vOk" }
+                ]
+            },
+            {
+                title: "AI 시각 자료 생성 & 업무 경 경감",
+                videos: [
+                    { title: "수업 자료 1초 완성! 구글 나노바나나 2", url: "https://www.youtube.com/watch?v=zEanzvVs1pc" },
+                    { title: "전문가급 인포그래픽 복잡한 원리도 척척", url: "https://www.youtube.com/watch?v=mi7TXYUSISs" },
+                    { title: "우리 반 캐릭터 세트 1초 완성 학급 마스코트", url: "https://www.youtube.com/watch?v=btNU3Refa-w" },
+                    { title: "AI로 전문적 학습공동체 계획서 한 방에 끝내기", url: "https://www.youtube.com/watch?v=e4varsQYGAI" },
+                    { title: "회의 녹음 파일로 우리 학교 양식 회의록 뚝딱", url: "https://www.youtube.com/watch?v=z1cAYw_6II0" }
+                ]
+            },
+            {
+                title: "구글 AI & 시네마틱 영상 제작",
+                videos: [
+                    { title: "구글 AI가 만든 4분짜리 영화급 고퀄 영상", url: "https://www.youtube.com/watch?v=ujondBmf-jA" },
+                    { title: "99%가 모르는 구글 AI 숨겨진 기능, 1초 만에 여는 법", url: "https://www.youtube.com/watch?v=kZv5YL2e3Vk" },
+                    { title: "프롬프트 단 한 줄의 기적, 10분짜리 학습 영상 뚝딱", url: "https://www.youtube.com/watch?v=B2t_qn-jU0E" },
+                    { title: "대충 쓴 메모장, 구글 AI에 던졌더니 벌어진 일", url: "https://www.youtube.com/watch?v=keok1C-Ft3U" }
+                ]
+            }
+        ];
+
+        // 유튜브 썸네일 추출 함수
+        function getYoutubeThumb(url) {
+            const match = url.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
+            const videoId = match ? match[1] : '';
+            return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
+        }
+
+        // 툴킷 카드 렌더링
+        function renderToolkits() {
+            const mathContainer = document.getElementById('math-toolkit-container');
+            const scienceContainer = document.getElementById('science-toolkit-container');
+
+            const createCard = (tool) => `
+                <div class="relative flex-none w-[280px] md:w-[320px] aspect-video rounded-md overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-105 hover:z-30 shadow-lg shadow-black/50" onclick="openModal('${tool.id}')">
+                    <!-- 선생님의 로컬 이미지가 들어가는 부분 -->
+                    <img src="${tool.img}" alt="${tool.title}" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="text-[#E50914] text-xs font-bold mb-1">${tool.subject}</div>
+                        <h3 class="text-white font-bold text-lg truncate">${tool.title}</h3>
+                        <div class="flex gap-2 mt-2">
+                            <span class="bg-white/20 backdrop-blur text-white text-[10px] px-2 py-1 rounded-sm border border-white/30">AI 내장</span>
+                            <span class="bg-white/20 backdrop-blur text-white text-[10px] px-2 py-1 rounded-sm border border-white/30">무설치</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            mathContainer.innerHTML = TOOLKIT_DATA.filter(t => t.subject.includes('수학')).map(createCard).join('');
+            scienceContainer.innerHTML = TOOLKIT_DATA.filter(t => t.subject.includes('과학')).map(createCard).join('');
+        }
+
+        // 유튜브 영상 렌더링
+        function renderYoutubeVideos() {
+            const container = document.getElementById('video-manual');
+            
+            const html = YOUTUBE_CATEGORIES.map(category => `
+                <section>
+                    <h2 class="text-xl md:text-2xl font-bold mb-4 text-gray-200 hover:text-white transition cursor-pointer flex items-center gap-2">
+                        ${category.title} <i data-lucide="chevron-right" class="text-gray-400"></i>
+                    </h2>
+                    <div class="flex overflow-x-auto gap-4 hide-scroll pb-8 pt-2">
+                        ${category.videos.map(video => `
+                            <a href="${video.url}" target="_blank" rel="noopener noreferrer" class="relative flex-none w-[250px] md:w-[280px] rounded-md overflow-hidden group transition-transform duration-300 hover:scale-105 shadow-md shadow-black/50">
+                                <div class="aspect-video relative">
+                                    <img src="${getYoutubeThumb(video.url)}" alt="${video.title}" class="w-full h-full object-cover border border-zinc-800 rounded-md group-hover:border-zinc-600 transition">
+                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                        <i data-lucide="play-circle" class="w-12 h-12 text-white drop-shadow-md"></i>
+                                    </div>
+                                </div>
+                                <h3 class="mt-2 text-sm text-gray-300 group-hover:text-white font-medium line-clamp-2 leading-snug">
+                                    ${video.title}
+                                </h3>
+                            </a>
+                        `).join('')}
+                    </div>
+                </section>
+            `).join('');
+
+            container.innerHTML = html;
+        }
+
+        // 스크롤 시 네비게이션 바 배경 변경
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#141414]', 'shadow-md', 'shadow-black/50');
+                navbar.classList.remove('bg-gradient-to-b', 'from-black/80', 'to-transparent');
+            } else {
+                navbar.classList.remove('bg-[#141414]', 'shadow-md', 'shadow-black/50');
+                navbar.classList.add('bg-gradient-to-b', 'from-black/80', 'to-transparent');
+            }
+        });
+
+        // 모달 열기
+        function openModal(id) {
+            const tool = TOOLKIT_DATA.find(t => t.id === id);
+            if (!tool) return;
+
+            document.getElementById('modal-img').src = tool.img;
+            document.getElementById('modal-title').textContent = tool.title;
+            document.getElementById('modal-desc').textContent = tool.desc;
+            document.getElementById('modal-subject').textContent = tool.subject;
+            document.getElementById('modal-subject-tag').textContent = tool.subject;
+            
+            const indischoolLink = document.getElementById('modal-indischool');
+            if (tool.indischoolUrl === '#') {
+                indischoolLink.style.pointerEvents = 'none';
+                indischoolLink.className = 'text-zinc-500 flex items-center gap-1';
+                indischoolLink.innerHTML = '업데이트 예정';
+                indischoolLink.href = '#';
+            } else {
+                indischoolLink.style.pointerEvents = 'auto';
+                indischoolLink.className = 'text-blue-400 hover:text-blue-300 flex items-center gap-1 transition';
+                indischoolLink.innerHTML = '인디스쿨 게시글 확인 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>';
+                indischoolLink.href = tool.indischoolUrl;
+            }
+
+            let buttonsHtml = `
+                <a href="${tool.gameUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-white text-black px-6 py-2 rounded shadow-lg hover:bg-gray-200 transition font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="black" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> 즉시 실행 (HTML)
+                </a>
+            `;
+
+            if (tool.worksheetUrl) {
+                buttonsHtml += `
+                    <a href="${tool.worksheetUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-zinc-700 text-white px-6 py-2 rounded shadow-lg hover:bg-zinc-600 transition font-medium border border-zinc-600">
+                        <i data-lucide="file-text" class="w-[18px] h-[18px]"></i> 사전 퀴즈/학습지
+                    </a>
+                `;
+            }
+            
+            document.getElementById('modal-buttons').innerHTML = buttonsHtml;
+            
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            lucide.createIcons(); // 동적으로 생성된 아이콘 다시 렌더링
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // 초기화
+        window.onload = () => {
+            renderToolkits();
+            renderYoutubeVideos();
+            lucide.createIcons(); // 전체 아이콘 렌더링
+        };
+
+    </script>
+</body>
+</html>
