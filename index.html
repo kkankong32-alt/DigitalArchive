@@ -12,10 +12,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* 커스텀 스크롤바 숨김 (넷플릭스 스타일 가로 스크롤) */
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth; }
-        
         /* 프리미엄 그라데이션 및 애니메이션 효과 */
         .hero-vignette { 
             background: linear-gradient(to top, #141414 0%, transparent 50%), 
@@ -33,6 +29,33 @@
         /* 전체 배경 및 텍스트 선택 색상 설정 */
         body { background-color: #141414; color: #ffffff; overflow-x: hidden; font-family: 'Pretendard', sans-serif; }
         ::selection { background-color: #E50914; color: white; }
+
+        /* 비디오 그리드 '펼쳐보기' 트릭 (순수 CSS) */
+        .video-grid {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr)); /* 모바일 기본 2열 */
+        }
+        @media (min-width: 768px) { .video-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } } /* 태블릿 3열 */
+        @media (min-width: 1024px) { .video-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } } /* 데스크탑 4열 */
+        @media (min-width: 1280px) { .video-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } } /* 와이드 5열 */
+
+        /* 펼쳐지지 않은 상태(.is-collapsed)일 때 첫 줄만 노출 */
+        /* 데스크탑(5열) 에서는 6번째 아이템부터 숨김 */
+        .video-grid.is-collapsed > a:nth-child(n+6) { display: none; }
+        
+        @media (max-width: 1279px) {
+            /* 4열 에서는 5번째부터 숨김 */
+            .video-grid.is-collapsed > a:nth-child(n+5) { display: none; }
+        }
+        @media (max-width: 1023px) {
+            /* 3열 에서는 4번째부터 숨김 */
+            .video-grid.is-collapsed > a:nth-child(n+4) { display: none; }
+        }
+        @media (max-width: 767px) {
+            /* 2열(모바일) 에서는 3번째부터 숨김 (딱 1줄만 보임) */
+            .video-grid.is-collapsed > a:nth-child(n+3) { display: none; }
+        }
     </style>
 </head>
 <body class="antialiased pb-24">
@@ -47,14 +70,14 @@
             <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="text-white hover:text-gray-400 transition-colors duration-300">홈</button>
             <button onclick="document.getElementById('toolkit-section-math').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition-colors duration-300">🧮 수학 오리지널</button>
             <button onclick="document.getElementById('toolkit-section-science').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition-colors duration-300">🔭 과학 오리지널</button>
-            <button onclick="document.getElementById('toolkit-section-etc').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition-colors duration-300">🌍 사회·창의융합</button>
+            <button onclick="document.getElementById('toolkit-section-etc').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition-colors duration-300">🌍 창의·융합</button>
             <button onclick="document.getElementById('video-manual').scrollIntoView({ behavior: 'smooth' })" class="hover:text-white transition-colors duration-300">📺 VOD 매뉴얼</button>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <div class="relative w-full h-[80vh] md:h-[95vh] flex items-center overflow-hidden">
-        <!-- Background Image & Overlay (image09.png 적용) -->
+        <!-- Background Image & Overlay -->
         <div class="absolute inset-0">
             <img src="image09.png" alt="Hero Background" class="w-full h-full object-cover opacity-60 bg-zoom-effect" onerror="this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=2000&q=80'">
             <div class="absolute inset-0 hero-vignette"></div>
@@ -85,40 +108,40 @@
     </div>
 
     <!-- Main Content Areas -->
-    <div class="px-6 md:px-14 -mt-24 md:-mt-32 relative z-20 flex flex-col gap-12 md:gap-16">
+    <div class="px-6 md:px-14 -mt-24 md:-mt-32 relative z-20 flex flex-col gap-12 md:gap-20">
         
         <!-- Row 1: Math Tools -->
         <section id="toolkit-section-math" class="group/section">
-            <h2 class="text-xl md:text-2xl font-bold mb-3 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
+            <h2 class="text-xl md:text-2xl font-bold mb-5 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
                 🧮 수학 오리지널 : 놀이가 되는 수학 에듀테크 <i data-lucide="chevron-right" class="text-[#E50914] w-6 h-6 opacity-0 group-hover/section:opacity-100 transition-opacity duration-300"></i>
             </h2>
-            <div id="math-toolkit-container" class="flex overflow-x-auto gap-3 md:gap-5 hide-scroll pb-10 pt-2 -mx-6 px-6 md:-mx-14 md:px-14">
+            <div id="math-toolkit-container" class="flex flex-wrap gap-4 md:gap-5">
                 <!-- Javascript로 동적 렌더링 됨 -->
             </div>
         </section>
 
         <!-- Row 2: Science Tools -->
         <section id="toolkit-section-science" class="group/section">
-            <h2 class="text-xl md:text-2xl font-bold mb-3 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
+            <h2 class="text-xl md:text-2xl font-bold mb-5 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
                 🔭 과학 오리지널 : 호기심을 깨우는 몰입형 탐구 <i data-lucide="chevron-right" class="text-[#E50914] w-6 h-6 opacity-0 group-hover/section:opacity-100 transition-opacity duration-300"></i>
             </h2>
-            <div id="science-toolkit-container" class="flex overflow-x-auto gap-3 md:gap-5 hide-scroll pb-10 pt-2 -mx-6 px-6 md:-mx-14 md:px-14">
+            <div id="science-toolkit-container" class="flex flex-wrap gap-4 md:gap-5">
                 <!-- Javascript로 동적 렌더링 됨 -->
             </div>
         </section>
 
         <!-- Row 3: Etc/Convergence Tools -->
         <section id="toolkit-section-etc" class="group/section">
-            <h2 class="text-xl md:text-2xl font-bold mb-3 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
+            <h2 class="text-xl md:text-2xl font-bold mb-5 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
                 🌍 사회·창의융합 클래스 : 교과를 넘나드는 특별한 수업 <i data-lucide="chevron-right" class="text-[#E50914] w-6 h-6 opacity-0 group-hover/section:opacity-100 transition-opacity duration-300"></i>
             </h2>
-            <div id="etc-toolkit-container" class="flex overflow-x-auto gap-3 md:gap-5 hide-scroll pb-10 pt-2 -mx-6 px-6 md:-mx-14 md:px-14">
+            <div id="etc-toolkit-container" class="flex flex-wrap gap-4 md:gap-5">
                 <!-- Javascript로 동적 렌더링 됨 -->
             </div>
         </section>
 
         <!-- Rows 4+: Youtube Categories -->
-        <div id="video-manual" class="flex flex-col gap-12 md:gap-16 pt-10 border-t border-zinc-800/50">
+        <div id="video-manual" class="flex flex-col gap-12 md:gap-16 pt-12 border-t border-zinc-800/50">
             <!-- Javascript로 동적 렌더링 됨 -->
         </div>
     </div>
@@ -133,7 +156,7 @@
     <!-- Detail Modal (Netflix Premium Style) -->
     <div id="modal" class="fixed inset-0 z-[100] hidden justify-center items-center p-4 md:p-8 pt-20 overflow-y-auto hide-scroll transition-opacity duration-300 opacity-0">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer" onclick="closeModal()"></div>
         
         <!-- Modal Content -->
         <div class="relative bg-[#181818] w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 border border-zinc-800" id="modal-content">
@@ -149,7 +172,7 @@
                 <div class="absolute inset-0 bg-gradient-to-r from-[#181818] via-[#181818]/40 to-transparent"></div>
                 
                 <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
-                    <h2 id="modal-title" class="text-4xl md:text-5xl font-extrabold text-white mb-6 drop-shadow-lg tracking-tight"></h2>
+                    <h2 id="modal-title" class="text-3xl md:text-5xl font-extrabold text-white mb-6 drop-shadow-lg tracking-tight"></h2>
                     <div id="modal-buttons" class="flex flex-wrap gap-4">
                         <!-- 버튼들 동적 생성 -->
                     </div>
@@ -190,17 +213,29 @@
     <!-- 스크립트: 데이터 및 로직 처리 -->
     <script>
         // --- DATA DEFINITIONS ---
+        // Vibe-MSE 툴킷 데이터
         const TOOLKIT_DATA = [
             {
-                id: 'math-angle',
-                title: '십이지신 레이스',
-                subject: '수학 4-1 각도',
+                id: 'math-patterncraft',
+                title: '규칙크래프트 (3D 샌드박스)',
+                subject: '수학 4-1 규칙과 관계',
                 category: 'math',
-                desc: '각도기를 거꾸로 잡거나 개념을 혼동하는 학생을 위한 레이스 게임입니다. 12마리의 십이지신 캐릭터와 함께 목표 각도를 직접 그리며, AI가 예각/둔각/직각 오개념을 판별하고 즉각적인 교정 힌트를 제공합니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Anglecatch',
-                worksheetUrl: 'https://kkankong32-alt.github.io/Anglecatchnote',
-                indischoolUrl: 'https://indischool.com/boards/libMath/37562318?key=PNvsc9Y6eHRAxoNv#reply-54637043',
-                img: 'image01.png'
+                desc: '마인크래프트를 벤치마킹한 샌드박스형 규칙 찾기 게임입니다. 블록으로 이루어진 세계에서 수와 도형의 배열 규칙을 찾고 관계를 추론하며 게임처럼 몰입감 있게 학습할 수 있습니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Patterncraft/',
+                worksheetUrl: '',
+                indischoolUrl: '#',
+                img: 'image12.png'
+            },
+            {
+                id: 'math-shape',
+                title: '평면도형 서바이벌 & 퀴즈',
+                subject: '수학 4-1 평면도형의 이동',
+                category: 'math',
+                desc: '평면도형의 밀기, 뒤집기, 돌리기 개념을 활용한 블록 서바이벌 게임과 사전 퀴즈 패키지입니다. 퀴즈를 통과해야 게임에 진입하며, 도형의 이동 규칙을 직관적으로 체득할 수 있습니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Diceshapegame',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Diceshapegamequiz',
+                indischoolUrl: '#',
+                img: 'image05.png'
             },
             {
                 id: 'math-space',
@@ -213,15 +248,25 @@
                 img: 'image02.png'
             },
             {
-                id: 'sci-magnet',
-                title: '자석 축구 월드컵',
-                subject: '과학 4-1 자석의 이용',
-                category: 'science',
-                desc: '자석 월드컵 예선전 컨셉의 실시간 대결 HTML 게임입니다. 골을 넣을 때마다 축구공의 N극/S극이 변환되어, 수비(밀어내기/같은 극)와 공격(당겨오기/다른 극) 규칙을 통해 자석의 성질을 직관적으로 체득할 수 있습니다.',
-                gameUrl: 'https://throinhoon.github.io/magnetsoccer/',
-                worksheetUrl: 'https://throinhoon.github.io/magnetscooernote/',
-                indischoolUrl: 'https://indischool.com/boards/libScience/37565032',
-                img: 'image03.png'
+                id: 'math-angle',
+                title: '십이지신 레이스',
+                subject: '수학 4-1 각도',
+                category: 'math',
+                desc: '각도기를 거꾸로 잡거나 개념을 혼동하는 학생을 위한 레이스 게임입니다. 12마리의 십이지신 캐릭터와 함께 목표 각도를 직접 그리며, AI가 예각/둔각/직각 오개념을 판별하고 즉각적인 교정 힌트를 제공합니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Anglecatch',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Anglecatchnote',
+                indischoolUrl: 'https://indischool.com/boards/libMath/37562318?key=PNvsc9Y6eHRAxoNv#reply-54637043',
+                img: 'image01.png'
+            },
+            {
+                id: 'math-bargraph',
+                title: '막대그래프 메이커',
+                subject: '수학 4-1 막대그래프',
+                category: 'math',
+                desc: '수집한 자료를 바탕으로 막대그래프를 쉽고 재미있게 그려볼 수 있는 인터랙티브 프로그램입니다. 데이터를 시각화하는 과정을 게임처럼 즐겁게 학습합니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Bargraph/',
+                indischoolUrl: '#',
+                img: 'image06.png'
             },
             {
                 id: 'sci-water',
@@ -235,48 +280,6 @@
                 img: 'image04.png'
             },
             {
-                id: 'math-shape',
-                title: '도형 서바이벌 & 퀴즈',
-                subject: '수학 4-1 평면도형의 이동',
-                category: 'math',
-                desc: '평면도형의 밀기, 뒤집기, 돌리기 개념을 활용한 블록 서바이벌 게임과 사전 퀴즈 패키지입니다. 퀴즈를 통과해야 게임에 진입하며, 도형의 이동 규칙을 직관적으로 체득할 수 있습니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Diceshapegame',
-                worksheetUrl: 'https://kkankong32-alt.github.io/Diceshapegamequiz',
-                indischoolUrl: '#',
-                img: 'image05.png'
-            },
-            {
-                id: 'math-bargraph',
-                title: '막대그래프 메이커',
-                subject: '수학 4-1 막대그래프',
-                category: 'math',
-                desc: '수집한 자료를 바탕으로 막대그래프를 쉽고 재미있게 그려볼 수 있는 인터랙티브 프로그램입니다. 데이터를 시각화하는 과정을 게임처럼 즐겁게 학습합니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Bargraph/',
-                indischoolUrl: '#',
-                img: 'image06.png'
-            },
-            {
-                id: 'math-patterncraft',
-                title: '규칙크래프트',
-                subject: '수학 4-1 규칙과 관계',
-                category: 'math',
-                desc: '마인크래프트를 벤치마킹한 샌드박스형 규칙 찾기 게임입니다. 블록으로 이루어진 세계에서 수와 도형의 배열 규칙을 찾고 관계를 추론하며 게임처럼 몰입감 있게 학습할 수 있습니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Patterncraft/',
-                worksheetUrl: '',
-                indischoolUrl: '#',
-                img: 'image12.png'
-            },
-            {
-                id: 'etc-demonhunter',
-                title: '디지털 데몬 헌터스',
-                subject: '창의적 체험활동 / 디지털 윤리',
-                category: 'etc',
-                desc: '학생들이 직접 데몬 헌터가 되어 사이버 폭력, 저작권 침해, 개인정보 유출 등의 디지털 위협(데몬)을 물리치는 윤리 교육 롤플레잉 게임입니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Digitaldomonhunters/',
-                indischoolUrl: '#',
-                img: 'image07.png'
-            },
-            {
                 id: 'sci-earthquake',
                 title: '땅의 변화 방탈출',
                 subject: '과학 4-1 땅의 변화',
@@ -286,6 +289,28 @@
                 worksheetUrl: 'https://kkankong32-alt.github.io/Earthquakequiz/',
                 indischoolUrl: '#',
                 img: 'image08.png'
+            },
+            {
+                id: 'sci-magnet',
+                title: '자석 축구 월드컵',
+                subject: '과학 4-1 자석의 이용',
+                category: 'science',
+                desc: '자석 월드컵 예선전 컨셉의 실시간 대결 HTML 게임입니다. 골을 넣을 때마다 축구공의 N극/S극이 변환되어, 수비(밀어내기/같은 극)와 공격(당겨오기/다른 극) 규칙을 통해 자석의 성질을 직관적으로 체득할 수 있습니다.',
+                gameUrl: 'https://throinhoon.github.io/magnetsoccer/',
+                worksheetUrl: 'https://throinhoon.github.io/magnetscooernote/',
+                indischoolUrl: 'https://indischool.com/boards/libScience/37565032',
+                img: 'image03.png'
+            },
+            {
+                id: 'sci-earthmotion',
+                title: '전지적 지구 시점 (3D)',
+                subject: '과학 6-1 지구의 운동',
+                category: 'science',
+                desc: '지구의 자전과 공전, 달의 위상 변화를 직관적으로 관찰하고 조작할 수 있는 3D 공학도구입니다. 전지적 시점에서 천체의 움직임을 탐구하며 우주적 공간 감각을 기를 수 있습니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/EarthMotionExplorer/',
+                worksheetUrl: '',
+                indischoolUrl: '#',
+                img: 'image13.png'
             },
             {
                 id: 'soc-busan',
@@ -308,52 +333,185 @@
                 worksheetUrl: '',
                 indischoolUrl: '#',
                 img: 'image11.png'
+            },
+            {
+                id: 'etc-demonhunter',
+                title: '디지털 데몬 헌터스',
+                subject: '창의적 체험활동 / 디지털 윤리',
+                category: 'etc',
+                desc: '학생들이 직접 데몬 헌터가 되어 사이버 폭력, 저작권 침해, 개인정보 유출 등의 디지털 위협(데몬)을 물리치는 윤리 교육 롤플레잉 게임입니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Digitaldomonhunters/',
+                indischoolUrl: '#',
+                img: 'image07.png'
             }
         ];
 
-        // 엄선 및 분류된 유튜브 재생목록 데이터
+        // 80여개의 방대한 유튜브 영상을 5개의 카테고리로 정밀하게 재분류 (인기/최신순 감안)
         const YOUTUBE_CATEGORIES = [
             {
-                title: "💡 코딩 없이 뚝딱! 바이브코딩 & 수업 게임 제작",
+                id: 'cat-vibecoding',
+                title: "🎮 1분 컷 바이브코딩 & 방탈출 에듀테크 제작",
                 videos: [
+                    { title: "코딩 없이 만든 마인크래프트급 3D 수학 가상세계 규칙크래프트 전격 공개!", url: "https://www.youtube.com/watch?v=hLNXjjGf2cA" },
+                    { title: "애들이 집에 안 가요! 퀴즈 통과해야 열리는 '평면도형의 이동' 블록 서바이벌 게임", url: "https://www.youtube.com/watch?v=2CH-LoUAw2o" },
+                    { title: "수업 준비 1분 컷! 그대로 쓰거나 내 맘대로 바꾸거나, 방탈출 수업 자료 완벽 가이드", url: "https://www.youtube.com/watch?v=zbay7qErP3U" },
+                    { title: "[수업자료] 평가지 대신 방탈출 어때요? 4학년 1학기 과학 '땅의 변화' 완벽 복습", url: "https://www.youtube.com/watch?v=Hw5jVgIqDVY" },
+                    { title: "코딩 1도 없이 AI로 마인크래프트급 3D 게임을 만들었다고?", url: "https://www.youtube.com/watch?v=grWkF6fewhM" },
+                    { title: "마인크래프트 조작법 그대로! 게임 속에서 수학 규칙을 찾는 완벽한 방법", url: "https://www.youtube.com/watch?v=F-0E-QStXbM" },
+                    { title: "마인크래프트를 통째로 옮겼다! 레드스톤이 멈춘 3D 수학 세계관", url: "https://www.youtube.com/watch?v=bodwJkoEWTs" },
                     { title: "코딩 0%, 아이디어 100% | 내 수업 맞춤형 변경법", url: "https://www.youtube.com/watch?v=pzh7WshrnPc" },
-                    { title: "수업 준비 1분 컷! 방탈출 수업 자료 완벽 가이드", url: "https://www.youtube.com/watch?v=zbay7qErP3U" },
+                    { title: "AI가 만든 코드, 내 수업용 파일로 저장하는 법 | 딸깍 3번이면 끝", url: "https://www.youtube.com/watch?v=Jg3Cgv_BImo" },
+                    { title: "코딩 몰라도 됩니다 | 말로 주문하면 AI가 다 바꿔줍니다", url: "https://www.youtube.com/watch?v=AOgn4oyegWg" },
                     { title: "API호출 없이 수학 게임 내부로직 제작법", url: "https://www.youtube.com/watch?v=vrQqfPxcECg" },
-                    { title: "세상에서 가장 쉬운 AI 교구 제작 비법", url: "https://www.youtube.com/watch?v=ZatxpX8Ta-c" },
-                    { title: "HTML 수업자료, 학운위 심의 대상일까요?", url: "https://www.youtube.com/watch?v=ZjCqR6Vhk_M" },
-                    { title: "보안 걱정 없는 패들렛 활용 우회 꿀팁", url: "https://www.youtube.com/watch?v=p-a8WopsJtg" }
+                    { title: "세상에서 가장 쉬운 AI 교구 제작 비법 말 두 마디면 끝납니다", url: "https://www.youtube.com/watch?v=ZatxpX8Ta-c" },
+                    { title: "코딩 1도 몰라도 괜찮습니다! 기존 수업 게임을 우리 반 맞춤형으로 완벽하게 바꾸는 비법", url: "https://www.youtube.com/watch?v=YxjJUSWLAXo" },
+                    { title: "딸깍하면 완성되는 바이브 코딩의 비밀", url: "https://www.youtube.com/watch?v=W7FcvdJ7HY0" },
+                    { title: "HTML 수업자료, 학운위 심의 대상일까요? 결론부터 말씀드립니다", url: "https://www.youtube.com/watch?v=ZjCqR6Vhk_M" },
+                    { title: "보안 걱정 없는 패들렛 활용 우회 꿀팁", url: "https://www.youtube.com/watch?v=p-a8WopsJtg" },
+                    { title: "종이학습지 인쇄 그만 퇴근 시간을 벌어봐요", url: "https://www.youtube.com/watch?v=IKN2Zk4hn7g" },
+                    { title: "요즘 잘나가는 선생님들의 비밀? AI로 뚝딱 만드는 맞춤형 수업 교구", url: "https://www.youtube.com/watch?v=mr5BBUIRNpY" },
+                    { title: "실제 지진이 나면? 15초 안에 살아남는 꿀잼 생존 방탈출", url: "https://www.youtube.com/watch?v=6C4hTPXTw0o" },
+                    { title: "틀리면 입장 불가! 7문제 이상 맞춰야 열리는 지옥의 과학 방탈출", url: "https://www.youtube.com/watch?v=8XYw7o867n4" },
+                    { title: "지루한 단원평가는 그만! 아이들이 열광하는 과학 방탈출 수업법", url: "https://www.youtube.com/watch?v=yNwjDmuFt20" }
                 ]
             },
             {
-                title: "🤖 교사를 위한 만능 AI 조교, NotebookLM 마스터",
+                id: 'cat-toolkit-guide',
+                title: "💡 오리지널 에듀테크 툴킷 100% 활용 가이드",
                 videos: [
-                    { title: "교과서 PDF만 넣으면 끝 환각 제로 AI 조교", url: "https://www.youtube.com/watch?v=X3yqhUhSr60" },
-                    { title: "내 입맛대로 만드는 AI 커스텀 퀴즈 1분 완성", url: "https://www.youtube.com/watch?v=_4mb7AjTa6c" },
-                    { title: "프롬프트 짜기 막막할 땐? AI에게 직접 시키세요!", url: "https://www.youtube.com/watch?v=tkDw628cyaA" },
-                    { title: "쉿! 전문가만 아는 완벽한 AI 프롬프트 6가지 비법", url: "https://www.youtube.com/watch?v=F39ZZp4TDxI" },
-                    { title: "클릭하면 대화하는 마인드맵? 완벽한 AI 학습법", url: "https://www.youtube.com/watch?v=U4uNk5GCwok" },
-                    { title: "원어민 없이 실시간 영어 대화? 양방향 오디오 기능!", url: "https://www.youtube.com/watch?v=5Yo3dWo2OHo" },
-                    { title: "사투리로 토론하는 AI가 실존한다고?!", url: "https://www.youtube.com/watch?v=jIBNmu3okKI" }
+                    { title: "아이들 몰입도 폭발 보장 자석 수업의 신세계 월드컵 게임으로 종결", url: "https://www.youtube.com/watch?v=bq3LKKkSwsE" },
+                    { title: "단원 평가가 즐거워지는 마법 4학년 과학 물의 상태 변화 런 게임", url: "https://www.youtube.com/watch?v=2t0yLGbS33s" },
+                    { title: "마의 3단원 완벽 해결 우주 연산 수비대 4학년 1학기 곱셈과 나눗셈", url: "https://www.youtube.com/watch?v=UU_xEetD4dA" },
+                    { title: "4학년 평면도형 완벽 복습! 절대 실패 없는 무료 수업 패키지", url: "https://www.youtube.com/watch?v=o7LN7e22Iuw" },
+                    { title: "[막대그래프 참교육] '선생님, 메뉴 어딨어요?' 질문 싹 사라집니다", url: "https://www.youtube.com/watch?v=P6ZXg-JxxRA" },
+                    { title: "[무료배포] 캐데헌 말고 이제는 '디데헌'이 대세! 정보통신윤리교육 레전드 수업 풀패키지", url: "https://www.youtube.com/watch?v=GjhuhPM8NvE" },
+                    { title: "개별 피드백 지옥 탈출 과학 수업 오답은 이제 AI가 잡습니다", url: "https://www.youtube.com/watch?v=-aOgBKP8Wc0" },
+                    { title: "[인터넷 없이 작동] 교사용 지도서가 내장된 AI? 4학년 1학기 수학 오개념 완전 정복", url: "https://www.youtube.com/watch?v=k4_9AVHZpnU" },
+                    { title: "자석 개념을 게임으로?! AI 수석코치가 오답도 잡아주는 월드컵 자석 게임", url: "https://www.youtube.com/watch?v=AYwoiXEYFcg" },
+                    { title: "4학년 1학기 수학 2단원 각도 - 각(Angle) 잡아라! 십이지신 레이스로 끝내는 AI 각도 수업", url: "https://www.youtube.com/watch?v=outZHPRVB04" },
+                    { title: "클릭 3번이면 끝! 퀄리티가 달라지는 초간단 막대그래프 3단계", url: "https://www.youtube.com/watch?v=009iGV0urI0" },
+                    { title: "초등 4학년 수업 대반전! 단 2시간 만에 완성된 고퀄리티 데이터 수업", url: "https://www.youtube.com/watch?v=65h4JjvAVds" },
+                    { title: "마지막 한 칸의 기적! 반 전체가 몰입하는 평면도형 서바이벌", url: "https://www.youtube.com/watch?v=HSvyCZC1J_k" },
+                    { title: "테트리스보다 재밌는 4학년 수학? 평면도형 이동 서바이벌 게임", url: "https://www.youtube.com/watch?v=NzI7HkTyd2k" },
+                    { title: "'선생님 한 번만 더 해요!' 평면도형 완벽 마스터하는 서바이벌 퀴즈", url: "https://www.youtube.com/watch?v=ancaKT0R0m4" },
+                    { title: "교과서 핵심 내용 완벽 정리! 물 탐험대 선발 테스트", url: "https://www.youtube.com/watch?v=uI9VFKjXCrY" },
+                    { title: "쿠키런인 줄 알았는데 과학 공부가 된다고? 물 탐험대 상태변화런!", url: "https://www.youtube.com/watch?v=xfDnALHuJjY" },
+                    { title: "AI가 대신 잡아주는 초등수학 오개념! 이제 연산 실수는 그만", url: "https://www.youtube.com/watch?v=9Gl6PbIFJgg" },
+                    { title: "선생님 대신 AI가 오개념 즉시 고쳐줘요", url: "https://www.youtube.com/watch?v=FVNZ7JwmZ6Y" },
+                    { title: "0 하나에 무너지는 4학년 수학 3단원 곱셈과 나눗셈 완벽 가이드", url: "https://www.youtube.com/watch?v=jC0wDOBTdDU" },
+                    { title: "몰입도 최고 자석 성질 마스터하는 월드컵 예선전 학습지", url: "https://www.youtube.com/watch?v=wLdcPLnhIck" },
+                    { title: "아이들 난리 나는 과학 시간 미친 몰입감 자석 축구 게임", url: "https://www.youtube.com/watch?v=xQgAQDI8s4w" },
+                    { title: "각도기 거꾸로 드는 아이들을 위한 수업", url: "https://www.youtube.com/watch?v=vOGwVNU34IA" },
+                    { title: "각도 공부가 게임이 된다 각 잡아라 십이지신 레이스 플레이 가이드", url: "https://www.youtube.com/watch?v=SkcNBJ_t-Mw" },
+                    { title: "수업 끝나도 안 나가는 마성의 수학 게임", url: "https://www.youtube.com/watch?v=kjHngVg1bMY" },
+                    { title: "'선생님 메뉴 어딨어요?' 수학 시간 질문 지옥 끝내는 초간단 그래프 도구", url: "https://www.youtube.com/watch?v=yC7tkmXvst4" }
                 ]
             },
             {
-                title: "🎨 1초 완성 AI 디자인 & 행정 업무 자동화",
+                id: 'cat-notebooklm',
+                title: "🤖 교과서를 삼킨 AI 튜터, NotebookLM 완벽 마스터",
                 videos: [
-                    { title: "수업 자료 1초 완성! 구글 나노바나나 2", url: "https://www.youtube.com/watch?v=zEanzvVs1pc" },
-                    { title: "전문가급 인포그래픽 복잡한 원리도 척척", url: "https://www.youtube.com/watch?v=mi7TXYUSISs" },
-                    { title: "워터마크 없는 고화질 AI 이미지 매일 50장 무료", url: "https://www.youtube.com/watch?v=uf7HN3jHTiY" },
-                    { title: "AI로 전문적 학습공동체 계획서 한 방에 끝내기", url: "https://www.youtube.com/watch?v=e4varsQYGAI" },
-                    { title: "회의 녹음 파일로 우리 학교 양식 회의록 뚝딱", url: "https://www.youtube.com/watch?v=z1cAYw_6II0" },
-                    { title: "계속되는 똑같은 질문 멈춰! 업무 연락 절반 줄이기", url: "https://www.youtube.com/watch?v=IGNekxw4yBg" }
+                    { title: "교과서 PDF만 넣으면 끝 환각 제로 AI 조교 노트북LM", url: "https://www.youtube.com/watch?v=X3yqhUhSr60" },
+                    { title: "수업 준비가 너무 쉽다! 내 입맛대로 만드는 AI 커스텀 퀴즈 1분 완성", url: "https://www.youtube.com/watch?v=_4mb7AjTa6c" },
+                    { title: "쉿! 전문가만 아는 완벽한 AI 프롬프트 6가지 비법 NotebookLM 100% 활용법", url: "https://www.youtube.com/watch?v=F39ZZp4TDxI" },
+                    { title: "클릭하면 대화하는 마인드맵? 할루시네이션 없는 완벽한 AI 학습법", url: "https://www.youtube.com/watch?v=U4uNk5GCwok" },
+                    { title: "1분 만에 교실이 라디오 스튜디오로 변하는 노트북LM AI 오디오 활용 가이드", url: "https://www.youtube.com/watch?v=W1_6RD36b6w" },
+                    { title: "구글 AI가 사투리를? 소름 돋는 연기력의 노트북LM 오디오 오버뷰 완벽 가이드", url: "https://www.youtube.com/watch?v=u3Zrly8p4Tw" },
+                    { title: "프롬프트 짜기 막막할 땐? AI에게 직접 시키세요! (+무한 생성 꼼수)", url: "https://www.youtube.com/watch?v=tkDw628cyaA" },
+                    { title: "원어민 없이 실시간 영어 대화? NotebookLM 양방향 오디오 기능!", url: "https://www.youtube.com/watch?v=5Yo3dWo2OHo" },
+                    { title: "사투리로 토론하는 AI가 실존한다고?! 구글 NotebookLM 오디오 커스터마이징", url: "https://www.youtube.com/watch?v=jIBNmu3okKI" },
+                    { title: "선생님, AI 답변 무조건 믿지 마세요! NotebookLM 실전 주의사항", url: "https://www.youtube.com/watch?v=MmIOlOpqAQs" },
+                    { title: "AI가 자꾸 거짓말을 한다면? 팩트 폭격기 NotebookLM으로 해결!", url: "https://www.youtube.com/watch?v=CjuOToCt0sk" },
+                    { title: "AI가 자꾸 헛소리를 한다면? NotebookLM 성능 200% 높이는 '소스 관리' 법칙", url: "https://www.youtube.com/watch?v=L_-5TbqUDSU" },
+                    { title: "200쪽 매뉴얼 다 읽지 마세요! 단 10초 만에 핵심만 쏙쏙", url: "https://www.youtube.com/watch?v=TTwjldpPf3E" },
+                    { title: "수십 개 문서도 1초 만에 뚝딱! AI가 알아서 정리해 주는 라벨 기능", url: "https://www.youtube.com/watch?v=AGLxmEmq0NU" },
+                    { title: "유튜브 영상, 이제 보지 말고 '읽으세요' 소스 업로드 비법", url: "https://www.youtube.com/watch?v=MNxyUXVrwn4" },
+                    { title: "수백 장짜리 복잡한 매뉴얼, 1초 만에 AI 챗봇으로 만드는 법", url: "https://www.youtube.com/watch?v=eAljRYyImjQ" },
+                    { title: "딱딱한 텍스트를 팟캐스트로! 운전하면서 듣는 AI 공부법", url: "https://www.youtube.com/watch?v=x3d4FC76vOk" },
+                    { title: "챗GPT 거짓말에 지쳤다면? 이 구글 AI를 써보세요", url: "https://www.youtube.com/watch?v=NInCo5mcJZo" },
+                    { title: "[교사 업무 해방] 나만의 똑똑한 AI 수업 조교 만들기", url: "https://www.youtube.com/watch?v=0vPtoPKb5Ik" },
+                    { title: "학생 초대 링크는 이제 그만! 구글 클래스룸 노트북LM 다이렉트 연동법", url: "https://www.youtube.com/watch?v=IJzxidZ_cg0" },
+                    { title: "독서 활동지 & 체험학습지, 이걸로 10분 컷 끝! 템플릿 활용법", url: "https://www.youtube.com/watch?v=2yifhIeyDC8" },
+                    { title: "서술형 평가 & 채점 기준, 단 10초 만에 뚝딱?! 업무 시간 줄이기", url: "https://www.youtube.com/watch?v=Qag0rPaGrZI" },
+                    { title: "유료 AI 클로드보다 낫다고?! 돈 안 드는 무료 AI로 학습지 뚝딱", url: "https://www.youtube.com/watch?v=OzJhS_8UZes" },
+                    { title: "강력한 퇴근 메이커 교과서만 넣으면 문제 출제 끝 노트북LM 활용법", url: "https://www.youtube.com/watch?v=kdoqD6OKEU8" },
+                    { title: "수업 자료 1초 완성 템 NotebookLM 스튜디오 패널 완전 정복", url: "https://www.youtube.com/watch?v=IqJZkHxkZ4Y" },
+                    { title: "공부 효율 200% 수직 상승! 학생 맞춤형 AI 학습 가이드 세팅 비법", url: "https://www.youtube.com/watch?v=fYcFa-zOv3E" },
+                    { title: "글로벌 수업 영국식 인도식 영어까지 노트북LM의 놀라운 미래", url: "https://www.youtube.com/watch?v=Sz0yJi70JTs" },
+                    { title: "수업 치트키 AI 오디오의 마법! 노트북LM 프롬프트 황금 레시피", url: "https://www.youtube.com/watch?v=ro_wlqiNxKk" },
+                    { title: "영어 수업 혁명 원어민 AI랑 실시간 프리토킹 인터랙티브 모드", url: "https://www.youtube.com/watch?v=-WzAm2Oii2Q" },
+                    { title: "수업의 혁신 노트북LM 오디오오버뷰와 립싱크로 만드는 사투리 토론 영상", url: "https://www.youtube.com/watch?v=w7afN2t-fwM" },
+                    { title: "초몰입 수업 사투리 쓰는 AI! 실감 나는 토론 자료", url: "https://www.youtube.com/watch?v=R9MjinIrwx0" },
+                    { title: "전래동화의 변신 AI 할머니가 들려주는 흥부와 놀부 인성 교육", url: "https://www.youtube.com/watch?v=C8AL7IxTkWc" },
+                    { title: "초실감 수업 AI가 화산 폭발 긴급 방송을 노트북LM 과학 수업", url: "https://www.youtube.com/watch?v=pdlK-8x-ufs" },
+                    { title: "토론 수업 끝판왕 AI가 직접 토론하는 수업 자료", url: "https://www.youtube.com/watch?v=08UUjly7lcI" },
+                    { title: "수업혁명 교과서만 넣으면 AI가 라디오를 역대급 활용법", url: "https://www.youtube.com/watch?v=dsV1ZJ96v7M" },
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live)", url: "https://www.youtube.com/watch?v=r7s6TK5MR_k" },
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [1편]", url: "https://www.youtube.com/watch?v=ses04ov3VcA" },
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [2편]", url: "https://www.youtube.com/watch?v=COAX9E-yZkQ" },
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [3편]", url: "https://www.youtube.com/watch?v=vUmqKqUJcNQ" },
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [4편]", url: "https://www.youtube.com/watch?v=xntw_jFysuo" },
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [5편]", url: "https://www.youtube.com/watch?v=vrvUnb5WI1o" }
                 ]
             },
             {
-                title: "🎬 구글 AI로 만드는 영화급 시네마틱 영상",
+                id: 'cat-design-video',
+                title: "🎨 PPT 자동화 및 시각 자료/시네마틱 영상 제작",
                 videos: [
+                    { title: "모르면 무조건 손해! 복붙으로 끝나는 역대급 AI 프롬프트 모음집 무료 배포", url: "https://www.youtube.com/watch?v=gW6yQS_a3fg" },
+                    { title: "PPT 50장? 클릭 한 번 하고 커피 마시고 오면 끝나는 역대급 AI 비법", url: "https://www.youtube.com/watch?v=jDJyemfoBeM" },
+                    { title: "PPT 45장 순삭? 실패 없는 AI 프롬프트 작성법 대공개", url: "https://www.youtube.com/watch?v=YaqP4xGlOm8" },
+                    { title: "클릭 한 번에 PPT 완성?! 😲 교사 필수 NotebookLM 슬라이드 제작 꿀팁", url: "https://www.youtube.com/watch?v=abd66H2oYRM" },
+                    { title: "AI로 PPT 50장 만들 때 디자인 절대 안 깨지는 '단 하나의 비밀'", url: "https://www.youtube.com/watch?v=mPdJ2N8XwZo" },
+                    { title: "노트북LM으로 슬라이드 다시 만들지 마세요! 원하는 슬라이드 딱 1장만 감쪽같이 고치는 꿀팁", url: "https://www.youtube.com/watch?v=s6VoqvmrO5w" },
+                    { title: "PPT 워터마크 지우느라 고생 끝! 진짜 1초 만에 사라지는 꼼수", url: "https://www.youtube.com/watch?v=KJz3InPq8Q8" },
+                    { title: "AI의 실수? 1초 만에 해결! 노트북LM PPT 캐릭터 완벽 수정 꿀팁", url: "https://www.youtube.com/watch?v=llWSUlp4TiA" },
+                    { title: "디자인 무한 박제 노트북LM PPT 100장 일관성 있게 만드는 비밀", url: "https://www.youtube.com/watch?v=IVRX9o43ovo" },
+                    { title: "OOO 기법 공개! 노트북LM으로 내 캐릭터 담긴 일관성 있는 PPT 100장 무제한 생성", url: "https://www.youtube.com/watch?v=jpbCO0A63zY" },
+                    { title: "노트북LM PPT 100장 생성의 첫 단추! 개요와 프롬프트 설계 비법", url: "https://www.youtube.com/watch?v=B0wHbRNr_7Y" },
+                    { title: "노트북LM 무제한 일관성 유지 PPT 제작 3단계 종결! 소스 재등록 기법", url: "https://www.youtube.com/watch?v=YcdRiM8t7zY" },
+                    { title: "1초 만에 흔적 삭제 노트북LM 워터마크 감쪽같이 지우는 법", url: "https://www.youtube.com/watch?v=p1sQwjafC3Y" },
+                    { title: "대충 적어도 교과서 퀄리티? AI로 초고퀄 동화책 뚝딱 만드는 법", url: "https://www.youtube.com/watch?v=O6XryvQk49o" },
+                    { title: "AI가 만든 이미지 속 거슬리는 로고 1초 만에 지우는 미친 꿀팁", url: "https://www.youtube.com/watch?v=z9SO3ETxC_I" },
+                    { title: "AI가 만든 통짜 이미지, 속 글자만 마음대로 수정하는 미친 기능 (소름주의)", url: "https://www.youtube.com/watch?v=dFeFGvQbDX4" },
+                    { title: "디자인 똥손 탈출! PDF 하나로 1초 만에 인포그래픽 만드는 법", url: "https://www.youtube.com/watch?v=NOYe33zRKH0" },
+                    { title: "수업 자료 혁명: 클릭 몇 번에 이런 인포그래픽이? (노트북LM)", url: "https://www.youtube.com/watch?v=v2safbLH66U" },
+                    { title: "프롬프트 한 줄의 기적! 1분 완성 비교 인포그래픽", url: "https://www.youtube.com/watch?v=2FIn_6JCirA" },
+                    { title: "노트북LM 마인드맵이 밋밋하다면? 제미나이로 10초 만에 환골탈태 시키는 법", url: "https://www.youtube.com/watch?v=3t6q3xJ8Y-Y" },
+                    { title: "우리 반 마스코트, 학생들과 함께 만들기! (AI로 10초 완성)", url: "https://www.youtube.com/watch?v=VJCsvoFpNTY" },
+                    { title: "제미나이 10초 컷! 내 사진 한 장으로 우리 반 마스코트 9개 만들기", url: "https://www.youtube.com/watch?v=L7pm_PYgF5k" },
+                    { title: "역대급 수업 자료 전래동화 삽화부터 영어 단어 카드 세트까지 1초 완성 구글 나노바나나 2", url: "https://www.youtube.com/watch?v=zEanzvVs1pc" },
+                    { title: "텍스트까지 완벽한 학예회 안내장 1초 완성 구글 나노바나나 2 활용 꿀팁", url: "https://www.youtube.com/watch?v=tuUdHyVodpw" },
+                    { title: "실패 없는 AI 이미지 생성 프롬프트 작성 황금 공식 나노바나나 2 기초 가이드", url: "https://www.youtube.com/watch?v=qoZcfliMXE4" },
+                    { title: "전문가급 인포그래픽 1초 완성 복잡한 과학 원리도 척척 구글 나노바나나 2", url: "https://www.youtube.com/watch?v=mi7TXYUSISs" },
+                    { title: "워터마크 없는 고화질 AI 이미지 매일 50장 무료로 만드는 방법 구글 플로우와 젠스파크", url: "https://www.youtube.com/watch?v=uf7HN3jHTiY" },
+                    { title: "4우리 반 캐릭터 세트 1초 완성 구글 나노바나나 2 학급 마스코트 제작 가이드", url: "https://www.youtube.com/watch?v=btNU3Refa-w" },
+                    { title: "수업 자료 고민 끝 텍스트까지 정확한 AI 인포그래픽 1초 완성법", url: "https://www.youtube.com/watch?v=ExXztHHCgiU" },
+                    { title: "디자인 초보 탈출 1초 만에 끝나는 고퀄리티 시각 자료 제작법 구글 나노바나나 2", url: "https://www.youtube.com/watch?v=YPq0nY22P8U" },
                     { title: "구글 AI가 만든 4분짜리 영화급 고퀄 영상", url: "https://www.youtube.com/watch?v=ujondBmf-jA" },
-                    { title: "99%가 모르는 구글 AI 숨겨진 기능, 1초 만에 여는 법", url: "https://www.youtube.com/watch?v=kZv5YL2e3Vk" },
-                    { title: "프롬프트 단 한 줄의 기적, 10분짜리 학습 영상 뚝딱", url: "https://www.youtube.com/watch?v=B2t_qn-jU0E" },
-                    { title: "대충 쓴 메모장, 구글 AI에 던졌더니 벌어진 일", url: "https://www.youtube.com/watch?v=keok1C-Ft3U" }
+                    { title: "99%가 모르는 구글 AI 숨겨진 기능, 버튼 하나로 1초 만에 여는 법", url: "https://www.youtube.com/watch?v=kZv5YL2e3Vk" },
+                    { title: "프롬프트 단 한 줄의 기적, 10분짜리 학습 영상이 뚝딱? (구글 AI 활용법)", url: "https://www.youtube.com/watch?v=B2t_qn-jU0E" },
+                    { title: "대충 쓴 메모장, 구글 AI에 던졌더니 벌어진 일 (퀄리티 주의)", url: "https://www.youtube.com/watch?v=keok1C-Ft3U" },
+                    { title: "교과서 던져주고 단어 몇 개 쳤더니.. 구글 AI가 만든 4분짜리 영화급 고퀄 영상", url: "https://www.youtube.com/watch?v=ujondBmf-jA" },
+                    { title: "비디오부터 PPT, 인포그래픽까지 원클릭! NotebookLM 200% 활용법 (Live)", url: "https://www.youtube.com/watch?v=jwNaSFE4XU0" },
+                    { title: "[Live 1편] 교과서 PDF 하나 던졌을 뿐인데 고퀄리티 영화가 나옵니다 (시네마틱 비디오)", url: "https://www.youtube.com/watch?v=iT9VANp_xwI" },
+                    { title: "[Live 2편] 1분 만에 끝내는 고퀄리티 인포그래픽 & 마인드맵 무한 생성 비법", url: "https://www.youtube.com/watch?v=4z7JQOoE6rA" },
+                    { title: "[Live 3편] PPT 45장 10분 완성? 내 사진으로 학급 캐릭터 만들고 자동 삽입하는 비법", url: "https://www.youtube.com/watch?v=-LWchLe49ag" },
+                    { title: "[Live 4편] AI로 50장 PPT 만들어도 디자인 안 깨지는 '특급 비밀' (PDF 소스 활용법)", url: "https://www.youtube.com/watch?v=8NL4_xx_rHA" },
+                    { title: "[Live 5편] AI가 만든 이미지 속 글자, 캔바(Canva)로 감쪽같이 수정하는 미친 꿀팁", url: "https://www.youtube.com/watch?v=BXZwQbjYLKA" }
+                ]
+            },
+            {
+                id: 'cat-admin-work',
+                title: "🗂️ 칼퇴를 부르는 마법, AI 행정 업무 자동화",
+                videos: [
+                    { title: "계속되는 똑같은 질문 멈춰! 나만의 AI 챗봇으로 업무 연락 절반 줄이는 비법", url: "https://www.youtube.com/watch?v=IGNekxw4yBg" },
+                    { title: "회의 녹음 파일만 올리면 우리 학교 양식대로 회의록 뚝딱! NotebookLM 오디오 활용법", url: "https://www.youtube.com/watch?v=z1cAYw_6II0" },
+                    { title: "퇴근 시간 사수 번거로운 행정 업무를 AI에게 맡겨야 하는 이유", url: "https://www.youtube.com/watch?v=5MrpMrkQUys" },
+                    { title: "[행정 업무 10초 컷] AI로 전문적 학습공동체 계획서 한 방에 끝내기", url: "https://www.youtube.com/watch?v=e4varsQYGAI" },
+                    { title: "[업무경감 끝판왕] 한글 표 복붙할 때 서식 안 깨지는 10초 비결", url: "https://www.youtube.com/watch?v=Z6AnOqVXy9A" },
+                    { title: "[업무경감 끝판왕] 제미나이와 IssamGPT로 5분 만에 고퀄리티 계획서 완성하기", url: "https://www.youtube.com/watch?v=lWlh0YvkXDs" },
+                    { title: "업무경감 끝판왕 제미나이와 아이쌤지피티의 환상 조합으로 잔학공 계획서 5분 완성하기", url: "https://www.youtube.com/watch?v=j_833pgPTjg" }
                 ]
             }
         ];
@@ -365,22 +523,20 @@
             return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
         }
 
-        // 프리미엄 툴킷 카드 렌더링
+        // 툴킷 카드 렌더링 (모든 카드 표시, Flex-wrap 배열)
         function renderToolkits() {
             const mathContainer = document.getElementById('math-toolkit-container');
             const scienceContainer = document.getElementById('science-toolkit-container');
             const etcContainer = document.getElementById('etc-toolkit-container');
 
             const createCard = (tool) => `
-                <div class="relative flex-none w-[280px] md:w-[340px] aspect-[16/9] rounded-md overflow-hidden cursor-pointer group transition-all duration-500 hover:scale-105 hover:z-40 hover:shadow-2xl hover:shadow-red-900/30 ring-1 ring-zinc-800 hover:ring-zinc-600" onclick="openModal('${tool.id}')">
-                    <!-- 선생님의 로컬 이미지가 들어가는 부분 -->
+                <div class="relative w-[calc(50%-8px)] md:w-[340px] aspect-[16/9] rounded-md overflow-hidden cursor-pointer group transition-all duration-500 hover:scale-105 hover:z-40 hover:shadow-2xl hover:shadow-red-900/30 ring-1 ring-zinc-800 hover:ring-zinc-600" onclick="openModal('${tool.id}')">
                     <img src="${tool.img}" alt="${tool.title}" class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-40" onerror="this.src='https://images.unsplash.com/photo-1544473244-f6895e69ce8d?auto=format&fit=crop&w=800&q=80'">
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-5">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 md:p-5">
                         <div class="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                            <div class="text-[#E50914] text-xs font-bold mb-1.5 tracking-wide drop-shadow">${tool.subject}</div>
-                            <h3 class="text-white font-extrabold text-xl truncate drop-shadow-md">${tool.title}</h3>
-                            <div class="flex gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            <div class="text-[#E50914] text-[10px] md:text-xs font-bold mb-1 md:mb-1.5 tracking-wide drop-shadow">${tool.subject}</div>
+                            <h3 class="text-white font-extrabold text-sm md:text-xl truncate drop-shadow-md">${tool.title}</h3>
+                            <div class="hidden md:flex gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                                 <span class="bg-white/20 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-sm border border-white/20 font-medium tracking-wider">AI 내장</span>
                                 <span class="bg-white/20 backdrop-blur-md text-white text-[10px] px-2 py-1 rounded-sm border border-white/20 font-medium tracking-wider">무설치</span>
                             </div>
@@ -394,18 +550,20 @@
             etcContainer.innerHTML = TOOLKIT_DATA.filter(t => t.category === 'etc').map(createCard).join('');
         }
 
-        // 유튜브 영상 렌더링
+        // 유튜브 영상 그리드 렌더링 및 펼쳐보기 기능
         function renderYoutubeVideos() {
             const container = document.getElementById('video-manual');
             
             const html = YOUTUBE_CATEGORIES.map(category => `
                 <section class="group/section">
-                    <h2 class="text-xl md:text-2xl font-bold mb-3 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
-                        ${category.title} <i data-lucide="chevron-right" class="text-[#E50914] w-6 h-6 opacity-0 group-hover/section:opacity-100 transition-opacity duration-300"></i>
+                    <h2 class="text-xl md:text-2xl font-bold mb-5 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
+                        ${category.title}
+                        <span class="text-sm font-normal text-zinc-500 ml-2">(${category.videos.length}개의 영상)</span>
                     </h2>
-                    <div class="flex overflow-x-auto gap-3 md:gap-5 hide-scroll pb-8 pt-2 -mx-6 px-6 md:-mx-14 md:px-14">
+                    
+                    <div id="${category.id}" class="video-grid is-collapsed">
                         ${category.videos.map(video => `
-                            <a href="${video.url}" target="_blank" rel="noopener noreferrer" class="relative flex-none w-[250px] md:w-[280px] rounded-md overflow-hidden group transition-all duration-500 hover:scale-105 hover:z-30 shadow-lg shadow-black/50 ring-1 ring-zinc-800 hover:ring-zinc-600">
+                            <a href="${video.url}" target="_blank" rel="noopener noreferrer" class="relative rounded-md overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:z-30 shadow-lg shadow-black/50 ring-1 ring-zinc-800 hover:ring-zinc-600">
                                 <div class="aspect-video relative">
                                     <img src="${getYoutubeThumb(video.url)}" alt="${video.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                                     <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 backdrop-blur-[2px]">
@@ -413,17 +571,50 @@
                                     </div>
                                 </div>
                                 <div class="p-3 bg-[#181818] border-t border-zinc-800/50">
-                                    <h3 class="text-sm text-gray-300 group-hover:text-white font-medium line-clamp-2 leading-snug transition-colors duration-300">
+                                    <h3 class="text-xs md:text-sm text-gray-300 group-hover:text-white font-medium line-clamp-2 leading-snug transition-colors duration-300" title="${video.title}">
                                         ${video.title}
                                     </h3>
                                 </div>
                             </a>
                         `).join('')}
                     </div>
+                    
+                    <!-- 펼쳐보기 버튼 -->
+                    ${category.videos.length > 5 ? `
+                    <div class="mt-6 text-center">
+                        <button onclick="toggleGrid('${category.id}', this)" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full border border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors text-sm font-medium">
+                            <span>전체 영상 펼쳐보기</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                        </button>
+                    </div>
+                    ` : ''}
                 </section>
             `).join('');
 
             container.innerHTML = html;
+        }
+
+        // 그리드 펼치기/접기 토글 함수
+        window.toggleGrid = function(gridId, btnElement) {
+            const grid = document.getElementById(gridId);
+            const span = btnElement.querySelector('span');
+            // Lucide 라이브러리가 로드되면서 i 태그를 svg로 변환하므로 svg를 찾도록 수정
+            const icon = btnElement.querySelector('svg') || btnElement.querySelector('i');
+            
+            if (grid.classList.contains('is-collapsed')) {
+                grid.classList.remove('is-collapsed');
+                span.textContent = '목록 접기';
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                grid.classList.add('is-collapsed');
+                span.textContent = '전체 영상 펼쳐보기';
+                if (icon) icon.style.transform = 'rotate(0deg)';
+                
+                // 접을 때 카테고리 제목으로 스크롤 부드럽게 이동
+                const sectionHeader = grid.previousElementSibling;
+                const y = sectionHeader.getBoundingClientRect().top + window.pageYOffset - 100;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }
         }
 
         // 스크롤 시 네비게이션 바 배경 변경
@@ -518,7 +709,6 @@
             renderYoutubeVideos();
             lucide.createIcons(); 
         };
-
     </script>
 </body>
 </html>
