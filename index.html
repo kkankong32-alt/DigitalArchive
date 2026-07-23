@@ -213,7 +213,6 @@
     <!-- 스크립트: 데이터 및 로직 처리 -->
     <script>
         // --- DATA DEFINITIONS ---
-        // Vibe-MSE 툴킷 데이터
         const TOOLKIT_DATA = [
             {
                 id: 'math-patterncraft',
@@ -222,30 +221,9 @@
                 category: 'math',
                 desc: '마인크래프트를 벤치마킹한 샌드박스형 규칙 찾기 게임입니다. 블록으로 이루어진 세계에서 수와 도형의 배열 규칙을 찾고 관계를 추론하며 게임처럼 몰입감 있게 학습할 수 있습니다.',
                 gameUrl: 'https://kkankong32-alt.github.io/Patterncraft/',
-                worksheetUrl: '',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Patterncraftquiz/',
                 indischoolUrl: '#',
                 img: 'image12.png'
-            },
-            {
-                id: 'math-shape',
-                title: '평면도형 서바이벌 & 퀴즈',
-                subject: '수학 4-1 평면도형의 이동',
-                category: 'math',
-                desc: '평면도형의 밀기, 뒤집기, 돌리기 개념을 활용한 블록 서바이벌 게임과 사전 퀴즈 패키지입니다. 퀴즈를 통과해야 게임에 진입하며, 도형의 이동 규칙을 직관적으로 체득할 수 있습니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Diceshapegame',
-                worksheetUrl: 'https://kkankong32-alt.github.io/Diceshapegamequiz',
-                indischoolUrl: '#',
-                img: 'image05.png'
-            },
-            {
-                id: 'math-space',
-                title: '우주 연산 수비대',
-                subject: '수학 4-1 곱셈과 나눗셈',
-                category: 'math',
-                desc: '마의 3단원 돌파를 위한 2인 대결형 우주 테마 보드게임! 연산 오류 AI 감지 시스템이 자릿수 올림 누락, 구구단 실수 등 12종의 오류 패턴을 개별 감지하며, 게임 종료 후 비행 기록 일지(오답 노트)를 자동 생성합니다.',
-                gameUrl: 'https://throinhoon.github.io/SpaceMultiplication-Division',
-                indischoolUrl: 'https://indischool.com/boards/libMath/37572591',
-                img: 'image02.png'
             },
             {
                 id: 'math-angle',
@@ -259,6 +237,27 @@
                 img: 'image01.png'
             },
             {
+                id: 'math-space',
+                title: '우주 연산 수비대',
+                subject: '수학 4-1 곱셈과 나눗셈',
+                category: 'math',
+                desc: '마의 3단원 돌파를 위한 2인 대결형 우주 테마 보드게임! 연산 오류 AI 감지 시스템이 자릿수 올림 누락, 구구단 실수 등 12종의 오류 패턴을 개별 감지하며, 게임 종료 후 비행 기록 일지(오답 노트)를 자동 생성합니다.',
+                gameUrl: 'https://throinhoon.github.io/SpaceMultiplication-Division',
+                indischoolUrl: 'https://indischool.com/boards/libMath/37572591',
+                img: 'image02.png'
+            },
+            {
+                id: 'math-shape',
+                title: '도형 서바이벌 & 퀴즈',
+                subject: '수학 4-1 평면도형의 이동',
+                category: 'math',
+                desc: '평면도형의 밀기, 뒤집기, 돌리기 개념을 활용한 블록 서바이벌 게임과 사전 퀴즈 패키지입니다. 퀴즈를 통과해야 게임에 진입하며, 도형의 이동 규칙을 직관적으로 체득할 수 있습니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Diceshapegame',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Diceshapegamequiz',
+                indischoolUrl: '#',
+                img: 'image05.png'
+            },
+            {
                 id: 'math-bargraph',
                 title: '막대그래프 메이커',
                 subject: '수학 4-1 막대그래프',
@@ -267,6 +266,28 @@
                 gameUrl: 'https://kkankong32-alt.github.io/Bargraph/',
                 indischoolUrl: '#',
                 img: 'image06.png'
+            },
+            {
+                id: 'sci-supermicro',
+                title: '슈퍼마이크로 (생물 대모험)',
+                subject: '과학 4-1 다양한 생물과 우리 생활',
+                category: 'science',
+                desc: '보이지 않는 생명 세계 대모험! 10문제 중 7문제를 통과해야 열리는 마리오급 몰입감의 횡스크롤 액션 생물 게임입니다. 균류, 원생생물, 세균을 탐구합니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/SuperMicro/',
+                worksheetUrl: 'https://kkankong32-alt.github.io/SuperMicroQuiz/',
+                indischoolUrl: '#',
+                img: 'image14.png'
+            },
+            {
+                id: 'sci-magnet',
+                title: '자석 축구 월드컵',
+                subject: '과학 4-1 자석의 이용',
+                category: 'science',
+                desc: '자석 월드컵 예선전 컨셉의 실시간 대결 HTML 게임입니다. 골을 넣을 때마다 축구공의 N극/S극이 변환되어, 수비(밀어내기/같은 극)와 공격(당겨오기/다른 극) 규칙을 통해 자석의 성질을 직관적으로 체득할 수 있습니다.',
+                gameUrl: 'https://throinhoon.github.io/magnetsoccer/',
+                worksheetUrl: 'https://throinhoon.github.io/magnetscooernote/',
+                indischoolUrl: 'https://indischool.com/boards/libScience/37565032',
+                img: 'image03.png'
             },
             {
                 id: 'sci-water',
@@ -291,26 +312,26 @@
                 img: 'image08.png'
             },
             {
-                id: 'sci-magnet',
-                title: '자석 축구 월드컵',
-                subject: '과학 4-1 자석의 이용',
-                category: 'science',
-                desc: '자석 월드컵 예선전 컨셉의 실시간 대결 HTML 게임입니다. 골을 넣을 때마다 축구공의 N극/S극이 변환되어, 수비(밀어내기/같은 극)와 공격(당겨오기/다른 극) 규칙을 통해 자석의 성질을 직관적으로 체득할 수 있습니다.',
-                gameUrl: 'https://throinhoon.github.io/magnetsoccer/',
-                worksheetUrl: 'https://throinhoon.github.io/magnetscooernote/',
-                indischoolUrl: 'https://indischool.com/boards/libScience/37565032',
-                img: 'image03.png'
-            },
-            {
                 id: 'sci-earthmotion',
                 title: '전지적 지구 시점 (3D)',
                 subject: '과학 6-1 지구의 운동',
                 category: 'science',
                 desc: '지구의 자전과 공전, 달의 위상 변화를 직관적으로 관찰하고 조작할 수 있는 3D 공학도구입니다. 전지적 시점에서 천체의 움직임을 탐구하며 우주적 공간 감각을 기를 수 있습니다.',
                 gameUrl: 'https://kkankong32-alt.github.io/EarthMotionExplorer/',
-                worksheetUrl: '',
+                worksheetUrl: 'https://kkankong32-alt.github.io/EarthMotionExplorerquiz/',
                 indischoolUrl: '#',
                 img: 'image13.png'
+            },
+            {
+                id: 'etc-demonhunter',
+                title: '디지털 데몬 헌터스',
+                subject: '창의적 체험활동 / 디지털 윤리',
+                category: 'etc',
+                desc: '학생들이 직접 데몬 헌터가 되어 사이버 폭력, 저작권 침해, 개인정보 유출 등의 디지털 위협(데몬)을 물리치는 윤리 교육 롤플레잉 게임입니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Digitaldomonhunters/',
+                worksheetUrl: 'https://kkankong32-alt.github.io/Digitaldemonhuntersquiz/',
+                indischoolUrl: '#',
+                img: 'image07.png'
             },
             {
                 id: 'soc-busan',
@@ -333,33 +354,29 @@
                 worksheetUrl: '',
                 indischoolUrl: '#',
                 img: 'image11.png'
-            },
-            {
-                id: 'etc-demonhunter',
-                title: '디지털 데몬 헌터스',
-                subject: '창의적 체험활동 / 디지털 윤리',
-                category: 'etc',
-                desc: '학생들이 직접 데몬 헌터가 되어 사이버 폭력, 저작권 침해, 개인정보 유출 등의 디지털 위협(데몬)을 물리치는 윤리 교육 롤플레잉 게임입니다.',
-                gameUrl: 'https://kkankong32-alt.github.io/Digitaldomonhunters/',
-                indischoolUrl: '#',
-                img: 'image07.png'
             }
         ];
 
-        // 80여개의 방대한 유튜브 영상을 5개의 카테고리로 정밀하게 재분류 (인기/최신순 감안)
+        // 엄선 및 분류된 유튜브 재생목록 데이터
         const YOUTUBE_CATEGORIES = [
             {
                 id: 'cat-vibecoding',
                 title: "🎮 1분 컷 바이브코딩 & 방탈출 에듀테크 제작",
                 videos: [
+                    { title: "코딩 0%, 아이디어 100% | 내 수업 맞춤형 변경법", url: "https://www.youtube.com/watch?v=pzh7WshrnPc" },
+                    { title: "AI가 만들면 노잼? 3번의 백지화 끝에 탄생한 마리오급 생물 게임 제작 비하인드!", url: "https://www.youtube.com/watch?v=YSG20HW6X9I" },
                     { title: "코딩 없이 만든 마인크래프트급 3D 수학 가상세계 규칙크래프트 전격 공개!", url: "https://www.youtube.com/watch?v=hLNXjjGf2cA" },
-                    { title: "애들이 집에 안 가요! 퀴즈 통과해야 열리는 '평면도형의 이동' 블록 서바이벌 게임", url: "https://www.youtube.com/watch?v=2CH-LoUAw2o" },
-                    { title: "수업 준비 1분 컷! 그대로 쓰거나 내 맘대로 바꾸거나, 방탈출 수업 자료 완벽 가이드", url: "https://www.youtube.com/watch?v=zbay7qErP3U" },
-                    { title: "[수업자료] 평가지 대신 방탈출 어때요? 4학년 1학기 과학 '땅의 변화' 완벽 복습", url: "https://www.youtube.com/watch?v=Hw5jVgIqDVY" },
+                    { title: "수업 끝나도 애들이 집에 안 가요... 코딩 없이 AI로 만든 전설의 3D 수학 게임!", url: "https://www.youtube.com/watch?v=h5Wr3ByjE1o" },
+                    { title: "코딩 1도 없이 마인크래프트급 3D 게임을 완성한 충격적인 비결 공개", url: "https://www.youtube.com/watch?v=IYTYn9qcShE" },
                     { title: "코딩 1도 없이 AI로 마인크래프트급 3D 게임을 만들었다고?", url: "https://www.youtube.com/watch?v=grWkF6fewhM" },
                     { title: "마인크래프트 조작법 그대로! 게임 속에서 수학 규칙을 찾는 완벽한 방법", url: "https://www.youtube.com/watch?v=F-0E-QStXbM" },
-                    { title: "마인크래프트를 통째로 옮겼다! 레드스톤이 멈춘 3D 수학 세계관", url: "https://www.youtube.com/watch?v=bodwJkoEWTs" },
-                    { title: "코딩 0%, 아이디어 100% | 내 수업 맞춤형 변경법", url: "https://www.youtube.com/watch?v=pzh7WshrnPc" },
+                    { title: "마인크래프트를 통째로 옮겼다! 레드스톤이 멈춘 3D 수학 세계관 ㄷㄷ", url: "https://www.youtube.com/watch?v=bodwJkoEWTs" },
+                    { title: "수업 준비 1분 컷! 그대로 쓰거나 내 맘대로 바꾸거나, 방탈출 수업 자료 완벽 가이드", url: "https://www.youtube.com/watch?v=zbay7qErP3U" },
+                    { title: "실제 지진이 나면? 15초 안에 살아남는 꿀잼 생존 방탈출", url: "https://www.youtube.com/watch?v=6C4hTPXTw0o" },
+                    { title: "틀리면 입장 불가! 7문제 이상 맞춰야 열리는 지옥의 과학 방탈출", url: "https://www.youtube.com/watch?v=8XYw7o867n4" },
+                    { title: "지루한 단원평가는 그만! 아이들이 열광하는 과학 방탈출 수업법", url: "https://www.youtube.com/watch?v=yNwjDmuFt20" },
+                    { title: "[수업자료] 평가지 대신 방탈출 어때요? 4학년 1학기 과학 '땅의 변화' 완벽 복습", url: "https://www.youtube.com/watch?v=Hw5jVgIqDVY" },
+                    { title: "애들이 집에 안 가요! 퀴즈 통과해야 열리는 '평면도형의 이동' 블록 서바이벌 게임", url: "https://www.youtube.com/watch?v=2CH-LoUAw2o" },
                     { title: "AI가 만든 코드, 내 수업용 파일로 저장하는 법 | 딸깍 3번이면 끝", url: "https://www.youtube.com/watch?v=Jg3Cgv_BImo" },
                     { title: "코딩 몰라도 됩니다 | 말로 주문하면 AI가 다 바꿔줍니다", url: "https://www.youtube.com/watch?v=AOgn4oyegWg" },
                     { title: "API호출 없이 수학 게임 내부로직 제작법", url: "https://www.youtube.com/watch?v=vrQqfPxcECg" },
@@ -369,22 +386,42 @@
                     { title: "HTML 수업자료, 학운위 심의 대상일까요? 결론부터 말씀드립니다", url: "https://www.youtube.com/watch?v=ZjCqR6Vhk_M" },
                     { title: "보안 걱정 없는 패들렛 활용 우회 꿀팁", url: "https://www.youtube.com/watch?v=p-a8WopsJtg" },
                     { title: "종이학습지 인쇄 그만 퇴근 시간을 벌어봐요", url: "https://www.youtube.com/watch?v=IKN2Zk4hn7g" },
-                    { title: "요즘 잘나가는 선생님들의 비밀? AI로 뚝딱 만드는 맞춤형 수업 교구", url: "https://www.youtube.com/watch?v=mr5BBUIRNpY" },
-                    { title: "실제 지진이 나면? 15초 안에 살아남는 꿀잼 생존 방탈출", url: "https://www.youtube.com/watch?v=6C4hTPXTw0o" },
-                    { title: "틀리면 입장 불가! 7문제 이상 맞춰야 열리는 지옥의 과학 방탈출", url: "https://www.youtube.com/watch?v=8XYw7o867n4" },
-                    { title: "지루한 단원평가는 그만! 아이들이 열광하는 과학 방탈출 수업법", url: "https://www.youtube.com/watch?v=yNwjDmuFt20" }
+                    { title: "요즘 잘나가는 선생님들의 비밀? AI로 뚝딱 만드는 맞춤형 수업 교구", url: "https://www.youtube.com/watch?v=mr5BBUIRNpY" }
                 ]
             },
             {
                 id: 'cat-toolkit-guide',
                 title: "💡 오리지널 에듀테크 툴킷 100% 활용 가이드",
                 videos: [
+                    { title: "퀴즈를 통과해야 게임 시작? 초등학생 과학 100점 만드는 마성의 수업 자료", url: "https://www.youtube.com/watch?v=BwsyM5VrG4k" },
+                    { title: "슈퍼마리오 뺨치는 타격감! 세균 대마왕 밟고 과학 100점 맞는 초등 과학 끝판왕 게임", url: "https://www.youtube.com/watch?v=uPHhYJo8nDY" },
+                    { title: "현미경보다 더 리얼한 관찰! 초등학생들 난리난 짚신벌레 잡기 대작전", url: "https://www.youtube.com/watch?v=HJTsQeY3r4c" },
+                    { title: "게임만 했는데 과학 100점? 마리오급 몰입감의 초등 과학 게임 (스테이지 1: 균류 숲)", url: "https://www.youtube.com/watch?v=fBaAWxuRHqs" },
+                    { title: "게임만 했을 뿐인데 과학 100점? 초등학생 열광하는 '슈퍼 마리오'급 생물 게임 🍄 슈퍼마이크로!", url: "https://www.youtube.com/watch?v=2k82NjMnRNE" },
+                    { title: "초등 과학 수업 40분 순삭 루틴 (도입부터 정리까지 완벽 가이드)", url: "https://www.youtube.com/watch?v=BLAX3bj78zM" },
+                    { title: "이마가 뜨거우면 여름, 턱이 뜨거우면 겨울? 초등 과학 계절 변화 10초 컷 이해", url: "https://www.youtube.com/watch?v=aGHlyGFsUjw" },
+                    { title: "초등 과학 '달의 위상 변화', 이 프로그램 하나면 수업 준비 끝! 🌓", url: "https://www.youtube.com/watch?v=xjxkm85t294" },
+                    { title: "지구 자전이 멈추면 어떻게 될까? 낮과 밤이 고정되는 신기한 실험", url: "https://www.youtube.com/watch?v=JzLlCtO5aUo" },
+                    { title: "오늘 밤 달 모습과 계절별 별자리, 버튼 한 번으로 확인하세요!", url: "https://www.youtube.com/watch?v=StcyTp6S0jE" },
+                    { title: "고퀄리티 3D 지구로 확인하는 자전과 공전, 그리고 낮과 밤의 변화", url: "https://www.youtube.com/watch?v=IHc8eXuHBkM" },
+                    { title: "마우스 하나로 끝! 초간단 우주 시뮬레이터 조작법 & 시간 설정", url: "https://www.youtube.com/watch?v=H6vuY2-s0wo" },
+                    { title: "설치 1도 없이 딸깍! 링크 하나로 끝내는 초등 우주 과학 수업", url: "https://www.youtube.com/watch?v=LbXQH-gJfnU" },
+                    { title: "설치 제로! 링크 하나로 우주와 지구를 동시에 보는 시뮬레이터", url: "https://www.youtube.com/watch?v=r2JYv3Tl5jY" },
+                    { title: "초등 우주 과학, 아직도 복잡한 스텔라리움 쓰시나요?", url: "https://www.youtube.com/watch?v=4UKU6qz3htg" },
+                    { title: "[무료배포] 아직도 스텔라리움 쓰세요? 현직 교사가 직접 만든 초등 과학 우주 시뮬레이터 끝판왕", url: "https://www.youtube.com/watch?v=qtxjuvSLiF4" },
+                    { title: "역대급 수업 올인원 패키지, 지금 바로 무료로 받으세요! (디데헌 사용법)", url: "https://www.youtube.com/watch?v=7xMYpMbGyQc" },
+                    { title: "최종 보스 '디마'의 충격적 정체! 학생들 감동시킨 디데헌 역대급 엔딩 ㄷㄷ", url: "https://www.youtube.com/watch?v=NGS8OgvXv_A" },
+                    { title: "딥페이크가 장난이야? 몬스터 정화하는 꿀팁 대방출! (디데헌 몰입도 200% 비결)", url: "https://www.youtube.com/watch?v=9sQqVXYzeP8" },
+                    { title: "'선생님 이거 진짜 게임이에요?' 학생들 환장하는 역대급 세계관 디데헌 수업 ㄷㄷ", url: "https://www.youtube.com/watch?v=RGIfVlg_pVQ" },
+                    { title: "게임인 줄 알았는데 공부가 저절로? 학생들 집중력 폭발시키는 디데헌 '문지기 퀴즈' 시스템 ㄷㄷ", url: "https://www.youtube.com/watch?v=MYnu2o0cud4" },
+                    { title: "선생님 제발 1시간씩 자료 찾지 마세요! 수업 멱살 캐리하는 '디데헌' 올인원 패키지 등장 ㄷㄷ", url: "https://www.youtube.com/watch?v=gwBXHygHmxc" },
+                    { title: "[무료배포] 캐데헌 말고 이제는 '디데헌'이 대세! 정보통신윤리교육 레전드 수업 풀패키지", url: "https://www.youtube.com/watch?v=GjhuhPM8NvE" },
+                    { title: "수포자도 눈 뒤집히는 3D 수학 게임 최종장! 용의 방 클리어 엔딩", url: "https://www.youtube.com/watch?v=GxsnJbVgcNg" },
                     { title: "아이들 몰입도 폭발 보장 자석 수업의 신세계 월드컵 게임으로 종결", url: "https://www.youtube.com/watch?v=bq3LKKkSwsE" },
                     { title: "단원 평가가 즐거워지는 마법 4학년 과학 물의 상태 변화 런 게임", url: "https://www.youtube.com/watch?v=2t0yLGbS33s" },
                     { title: "마의 3단원 완벽 해결 우주 연산 수비대 4학년 1학기 곱셈과 나눗셈", url: "https://www.youtube.com/watch?v=UU_xEetD4dA" },
                     { title: "4학년 평면도형 완벽 복습! 절대 실패 없는 무료 수업 패키지", url: "https://www.youtube.com/watch?v=o7LN7e22Iuw" },
                     { title: "[막대그래프 참교육] '선생님, 메뉴 어딨어요?' 질문 싹 사라집니다", url: "https://www.youtube.com/watch?v=P6ZXg-JxxRA" },
-                    { title: "[무료배포] 캐데헌 말고 이제는 '디데헌'이 대세! 정보통신윤리교육 레전드 수업 풀패키지", url: "https://www.youtube.com/watch?v=GjhuhPM8NvE" },
                     { title: "개별 피드백 지옥 탈출 과학 수업 오답은 이제 AI가 잡습니다", url: "https://www.youtube.com/watch?v=-aOgBKP8Wc0" },
                     { title: "[인터넷 없이 작동] 교사용 지도서가 내장된 AI? 4학년 1학기 수학 오개념 완전 정복", url: "https://www.youtube.com/watch?v=k4_9AVHZpnU" },
                     { title: "자석 개념을 게임으로?! AI 수석코치가 오답도 잡아주는 월드컵 자석 게임", url: "https://www.youtube.com/watch?v=AYwoiXEYFcg" },
@@ -446,12 +483,12 @@
                     { title: "초실감 수업 AI가 화산 폭발 긴급 방송을 노트북LM 과학 수업", url: "https://www.youtube.com/watch?v=pdlK-8x-ufs" },
                     { title: "토론 수업 끝판왕 AI가 직접 토론하는 수업 자료", url: "https://www.youtube.com/watch?v=08UUjly7lcI" },
                     { title: "수업혁명 교과서만 넣으면 AI가 라디오를 역대급 활용법", url: "https://www.youtube.com/watch?v=dsV1ZJ96v7M" },
-                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live)", url: "https://www.youtube.com/watch?v=r7s6TK5MR_k" },
-                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [1편]", url: "https://www.youtube.com/watch?v=ses04ov3VcA" },
-                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [2편]", url: "https://www.youtube.com/watch?v=COAX9E-yZkQ" },
-                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [3편]", url: "https://www.youtube.com/watch?v=vUmqKqUJcNQ" },
-                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [4편]", url: "https://www.youtube.com/watch?v=xntw_jFysuo" },
-                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [5편]", url: "https://www.youtube.com/watch?v=vrvUnb5WI1o" }
+                    { title: "교과서 PDF 하나로 수업 준비 끝! NotebookLM 첫걸음 (Live) [1편~5편]", url: "https://www.youtube.com/watch?v=r7s6TK5MR_k" },
+                    { title: "노트북LM활용 연수(Live)[5/5][5편] AI가 만든 이미지 속 글자, 캔바(Canva)로 감쪽같이 수정하는 미친 꿀팁", url: "https://www.youtube.com/watch?v=BXZwQbjYLKA" },
+                    { title: "노트북LM활용 연수(Live)[4/5][4편] AI로 50장 PPT 만들어도 디자인 안 깨지는 '특급 비밀' (PDF 소스 활용법)", url: "https://www.youtube.com/watch?v=8NL4_xx_rHA" },
+                    { title: "노트북LM활용 연수(Live)[3/5][3편] PPT 45장 10분 완성? 내 사진으로 학급 캐릭터 만들고 자동 삽입하는 비법", url: "https://www.youtube.com/watch?v=-LWchLe49ag" },
+                    { title: "노트북LM활용 연수(Live)[2/5][2편] 1분 만에 끝내는 고퀄리티 인포그래픽 & 마인드맵 무한 생성 비법", url: "https://www.youtube.com/watch?v=4z7JQOoE6rA" },
+                    { title: "노트북LM활용 연수(Live)[1/5] [1편] 교과서 PDF 하나 던졌을 뿐인데 고퀄리티 영화가 나옵니다", url: "https://www.youtube.com/watch?v=iT9VANp_xwI" }
                 ]
             },
             {
@@ -493,12 +530,7 @@
                     { title: "프롬프트 단 한 줄의 기적, 10분짜리 학습 영상이 뚝딱? (구글 AI 활용법)", url: "https://www.youtube.com/watch?v=B2t_qn-jU0E" },
                     { title: "대충 쓴 메모장, 구글 AI에 던졌더니 벌어진 일 (퀄리티 주의)", url: "https://www.youtube.com/watch?v=keok1C-Ft3U" },
                     { title: "교과서 던져주고 단어 몇 개 쳤더니.. 구글 AI가 만든 4분짜리 영화급 고퀄 영상", url: "https://www.youtube.com/watch?v=ujondBmf-jA" },
-                    { title: "비디오부터 PPT, 인포그래픽까지 원클릭! NotebookLM 200% 활용법 (Live)", url: "https://www.youtube.com/watch?v=jwNaSFE4XU0" },
-                    { title: "[Live 1편] 교과서 PDF 하나 던졌을 뿐인데 고퀄리티 영화가 나옵니다 (시네마틱 비디오)", url: "https://www.youtube.com/watch?v=iT9VANp_xwI" },
-                    { title: "[Live 2편] 1분 만에 끝내는 고퀄리티 인포그래픽 & 마인드맵 무한 생성 비법", url: "https://www.youtube.com/watch?v=4z7JQOoE6rA" },
-                    { title: "[Live 3편] PPT 45장 10분 완성? 내 사진으로 학급 캐릭터 만들고 자동 삽입하는 비법", url: "https://www.youtube.com/watch?v=-LWchLe49ag" },
-                    { title: "[Live 4편] AI로 50장 PPT 만들어도 디자인 안 깨지는 '특급 비밀' (PDF 소스 활용법)", url: "https://www.youtube.com/watch?v=8NL4_xx_rHA" },
-                    { title: "[Live 5편] AI가 만든 이미지 속 글자, 캔바(Canva)로 감쪽같이 수정하는 미친 꿀팁", url: "https://www.youtube.com/watch?v=BXZwQbjYLKA" }
+                    { title: "비디오부터 PPT, 인포그래픽까지 원클릭! NotebookLM 200% 활용법 (Live)", url: "https://www.youtube.com/watch?v=jwNaSFE4XU0" }
                 ]
             },
             {
