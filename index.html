@@ -354,6 +354,17 @@
                 worksheetUrl: '',
                 indischoolUrl: '#',
                 img: 'image11.png'
+            },
+            {
+                id: 'math-fractioncraft',
+                title: '분수크래프트 (3D 샌드박스)',
+                subject: '수학 5-1 분수의 덧셈과 뺄셈',
+                category: 'math',
+                desc: '마인크래프트를 벤치마킹한 샌드박스형 3D 게임입니다. 블록을 조작하고 공간을 탐험하며 분수의 덧셈과 뺄셈 원리를 직관적이고 몰입감 있게 학습할 수 있습니다.',
+                gameUrl: 'https://kkankong32-alt.github.io/Fractioncraft/',
+                worksheetUrl: '',
+                indischoolUrl: '#',
+                img: 'image15.png'
             }
         ];
 
@@ -586,7 +597,17 @@
         function renderYoutubeVideos() {
             const container = document.getElementById('video-manual');
             
-            const html = YOUTUBE_CATEGORIES.map(category => `
+            // NotebookLM -> Gemini Notebook 이름 변경 일괄 적용
+            const updatedCategories = YOUTUBE_CATEGORIES.map(category => ({
+                ...category,
+                title: category.title.replace(/NotebookLM|노트북LM/gi, 'Gemini Notebook'),
+                videos: category.videos.map(video => ({
+                    ...video,
+                    title: video.title.replace(/NotebookLM|노트북LM/gi, 'Gemini Notebook')
+                }))
+            }));
+
+            const html = updatedCategories.map(category => `
                 <section class="group/section">
                     <h2 class="text-xl md:text-2xl font-bold mb-5 text-gray-100 flex items-center gap-2 transition-colors duration-300 hover:text-white">
                         ${category.title}
